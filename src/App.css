@@ -1,0 +1,4 @@
+/* App-specific styles have been moved to index.css for a centralized design system. */
+.app {
+  min-height: 100vh;
+}

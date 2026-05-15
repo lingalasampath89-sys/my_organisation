@@ -64,6 +64,9 @@ function App() {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
+  // API Base URL - Update this after hosting the backend
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
@@ -514,7 +517,7 @@ function App() {
     setSubmitStatus(null);
     
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(contactForm)

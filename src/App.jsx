@@ -32,16 +32,17 @@ import {
 } from 'lucide-react';
 import './App.css';
 import logo from './assets/logo_pro.png';
-import heroImage from './assets/hero_pro.png';
-import workshop1 from './assets/workshop_1.png';
+// Optimized Cloud Images (Faster & Higher Clarity)
+const heroImage = "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80";
+const workshop1 = "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80";
 import tarunImg from './assets/tarun.jpg';
 import avinashImg from './assets/avinash.png';
 import chandanaImg from './assets/chandana.png';
 // NOTE: Make sure to save the uploaded image as 'sampath.png' in src/assets
 import sampathImg from './assets/sampath.png';
-import ws1 from './assets/ws-1.jpg';
-import ws2 from './assets/ws-2.jpg';
-import ws3 from './assets/ws-3.png';
+const ws1 = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80";
+const ws2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80";
+const ws3 = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -258,6 +259,8 @@ function App() {
             <motion.img 
               src={member.img} 
               alt={member.name} 
+              className="photo-enhanced"
+              loading="lazy"
               style={{ width: '180px', height: '180px', borderRadius: '50%', border: '8px solid rgba(255,255,255,0.2)', marginBottom: '32px', objectFit: 'cover' }}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -343,15 +346,16 @@ function App() {
             transition: 'all 0.3s ease'
           }}
         >
-          <img 
-            src={logo} 
-            alt="AISI" 
-            style={{ 
-              height: '38px', 
-              filter: theme === 'dark' ? 'brightness(1.2) contrast(1.1)' : 'none',
-              transition: 'filter 0.3s ease'
-            }} 
-          />
+              <img 
+                src={logo} 
+                alt="AISI" 
+                loading="lazy"
+                style={{ 
+                  height: '38px', 
+                  filter: theme === 'dark' ? 'brightness(1.2) contrast(1.1)' : 'none',
+                  transition: 'filter 0.3s ease'
+                }} 
+              />
           <span style={{ 
             fontSize: '24px', 
             fontWeight: '950', 
@@ -677,7 +681,7 @@ function App() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <img src={v.img} alt={v.title} style={{ width: '80px', height: '80px', borderRadius: '16px', objectFit: 'cover', border: '3px solid #f0f4ff' }} />
+                <img src={v.img} alt={v.title} loading="lazy" className="photo-enhanced" style={{ width: '80px', height: '80px', borderRadius: '16px', objectFit: 'cover', border: '3px solid #f0f4ff' }} />
                 <div style={{ 
                   width: '40px',
                   height: '40px',

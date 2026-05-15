@@ -55,6 +55,27 @@ body {
   color: var(--text-main);
   line-height: 1.5;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  content-visibility: auto;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Enhanced Clarity for photos */
+.photo-enhanced {
+  filter: contrast(1.05) saturate(1.05) brightness(1.02);
+}
+
+.photo-enhanced:hover {
+  filter: contrast(1.1) saturate(1.1) brightness(1.05);
 }
 
 /* Custom Scrollbar */

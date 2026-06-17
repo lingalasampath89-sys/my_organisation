@@ -582,28 +582,44 @@ function App() {
 
   const heroSlides = [
     {
-      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1600&q=80",
-      alt: "AI Students Learning & Collaboration"
+      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1920&q=90",
+      alt: "Students collaborating in AI classroom",
+      tag: "🚀 AI Education Revolution",
+      heading: "Bringing Future",
+      headingAccent: "Into Your Hands",
+      sub: "Artificial Intelligence Society India (AISI) is on a mission to democratize AI literacy for every K-12 student in India."
     },
     {
-      image: "https://images.unsplash.com/photo-1517694712006-21e0432ad4ef?auto=format&fit=crop&w=1600&q=80",
-      alt: "K-12 AI Education in Classroom"
+      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1920&q=90",
+      alt: "Interactive AI workshop session",
+      tag: "🧠 Hands-On Learning",
+      heading: "Real Workshops,",
+      headingAccent: "Real Impact",
+      sub: "Over 1,500 workshops conducted across Andhra Pradesh — students don't just learn AI, they build it."
     },
     {
-      image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80",
-      alt: "Programming & Coding for Students"
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1920&q=90",
+      alt: "Robotics and AI innovation",
+      tag: "🤖 Innovation Lab",
+      heading: "Build Robots,",
+      headingAccent: "Shape Tomorrow",
+      sub: "From robotics to neural networks — our students create cutting-edge AI projects that solve real problems."
     },
     {
-      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1600&q=80",
-      alt: "AI Innovation & Problem Solving"
+      image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1920&q=90",
+      alt: "Technology and programming education",
+      tag: "💻 Code & Create",
+      heading: "Learn Python,",
+      headingAccent: "Master AI",
+      sub: "Structured coding programs from Class 6 to 9 — turning curious students into confident AI developers."
     },
     {
-      image: "https://images.unsplash.com/photo-1522051213107-7191843c90eb?auto=format&fit=crop&w=1600&q=80",
-      alt: "Machine Learning & Data Science"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1600&q=80",
-      alt: "Future Innovators & Tech Leaders"
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=90",
+      alt: "Students engaged in group learning",
+      tag: "🏆 25,000+ Certified",
+      heading: "Join India's Largest",
+      headingAccent: "AI Community",
+      sub: "25,000+ students certified. 30+ partners. 12+ programs. Be part of the movement changing education forever."
     }
   ];
 
@@ -667,232 +683,160 @@ function App() {
   };
   const renderHome = () => (
     <>
-      <header className="hero-banner" style={{
-        minHeight: '60vh',
-        padding: 0,
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        background: '#000'
-      }}>
-        {/* Auto-play Progress Indicator */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: `${autoPlayProgress}%`,
-          height: '3px',
-          background: 'linear-gradient(90deg, var(--primary), var(--accent))',
-          transition: 'width 0.1s linear',
-          zIndex: 5
-        }}></div>
+      <header className="hero-banner">
+        {/* Glowing Progress Bar */}
+        <div className="hero-progress" style={{ width: `${autoPlayProgress}%` }} />
 
-        {/* Slider Images */}
+        {/* Floating Particles */}
+        <div className="hero-particles">
+          {[...Array(8)].map((_, i) => <div key={i} className="hero-particle" />)}
+        </div>
+
+        {/* Cinematic Ken Burns Slides */}
         {heroSlides.map((slide, index) => (
-          <div 
-            key={index} 
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              opacity: currentSlide === index ? 1 : 0,
-              transition: 'opacity 1s ease-in-out',
-              background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.78)), url(${slide.image}) center/cover no-repeat`,
-              zIndex: 0
-            }}
-          />
+          <div
+            key={index}
+            className={`hero-slide${currentSlide === index ? ' active' : ''}`}
+            style={{ opacity: currentSlide === index ? 1 : 0 }}
+            aria-hidden={currentSlide !== index}
+          >
+            <div
+              className="hero-slide-bg"
+              style={{ backgroundImage: `url(${slide.image})` }}
+              role="img"
+              aria-label={slide.alt}
+            />
+            <div className="hero-slide-overlay" />
+          </div>
         ))}
 
-        {/* Slider Controls with Accessibility */}
-        <motion.button 
-          onClick={prevSlide} 
+        {/* Premium Arrow: Previous */}
+        <button
+          className="hero-arrow hero-arrow--prev"
+          onClick={prevSlide}
           onKeyDown={(e) => { if (e.key === 'Enter') prevSlide(); }}
-          whileHover={{ scale: 1.15, background: 'rgba(255,255,255,0.35)' }}
-          whileTap={{ scale: 0.95 }}
           aria-label="Previous slide"
-          role="button"
           tabIndex={0}
-          style={{ 
-            position: 'absolute', 
-            left: '30px', 
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 10, 
-            background: 'rgba(255,255,255,0.25)', 
-            border: '2px solid rgba(255,255,255,0.4)',
-            color: 'white', 
-            padding: '18px', 
-            cursor: 'pointer', 
-            borderRadius: '50%', 
-            backdropFilter: 'blur(8px)',
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
-            '@media (max-width: 768px)': { padding: '12px', left: '12px' }
-          }}
         >
-          <ChevronLeft size={32} strokeWidth={3} />
-        </motion.button>
-        <motion.button 
+          <ChevronLeft />
+        </button>
+
+        {/* Premium Arrow: Next */}
+        <button
+          className="hero-arrow hero-arrow--next"
           onClick={nextSlide}
           onKeyDown={(e) => { if (e.key === 'Enter') nextSlide(); }}
-          whileHover={{ scale: 1.15, background: 'rgba(255,255,255,0.35)' }}
-          whileTap={{ scale: 0.95 }}
           aria-label="Next slide"
-          role="button"
           tabIndex={0}
-          style={{ 
-            position: 'absolute', 
-            right: '30px', 
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 10, 
-            background: 'rgba(255,255,255,0.25)', 
-            border: '2px solid rgba(255,255,255,0.4)',
-            color: 'white', 
-            padding: '18px', 
-            cursor: 'pointer', 
-            borderRadius: '50%', 
-            backdropFilter: 'blur(8px)',
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
-            '@media (max-width: 768px)': { padding: '12px', right: '12px' }
-          }}
         >
-          <ChevronRight size={32} strokeWidth={3} />
-        </motion.button>
+          <ChevronRight />
+        </button>
 
         {/* Hero Content */}
-        <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'left', width: '100%' }}>
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            style={{ maxWidth: '800px', color: 'white' }}
-          >
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '24px', background: 'rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '50px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)' }}>
-              <span style={{ color: '#60a5fa', fontWeight: '800', textTransform: 'uppercase', fontSize: '14px', letterSpacing: '2px' }}>
-                STRATEGIC PARTNER:
-              </span>
-              <a href="https://strinttechnologies.com/" target="_blank" rel="noreferrer" style={{ fontWeight: '800', fontSize: '14px', color: 'white', textDecoration: 'none' }}>
-                STRINT TECHNOLOGIES
-              </a>
-            </div>
-            
-            <h1 style={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: 'clamp(38px, 5.5vw, 68px)',
-              lineHeight: '1.08',
-              fontWeight: 900,
-              marginBottom: '24px',
-              letterSpacing: '-0.03em',
-              textShadow: '0 8px 28px rgba(0,0,0,0.85)'
-            }}>
-              Bringing Future <br/>
-              <span style={{
-                fontFamily: 'Space Grotesk, sans-serif',
-                background: 'linear-gradient(135deg, #60A5FA 0%, #06B6D4 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                fontWeight: 700,
-                filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.8))',
-                textShadow: '0 8px 24px rgba(0,0,0,0.9)'
-              }}>Into Your Hands</span>
-            </h1>
-
-            <p style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: 'clamp(16px, 2vw, 20px)',
-              opacity: 1,
-              marginBottom: '40px',
-              lineHeight: '1.7',
-              maxWidth: '580px',
-              fontWeight: 400
-            }}>
-              Artificial Intelligence Society India (AISI) is on a mission to democratize AI literacy for every K-12 student in India.
-            </p>
-
-            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
-              <motion.button
-                className="btn btn-primary btn-glow btn-pulse"
-                onClick={() => navigateTo('contact')}
-                whileHover={{ scale: 1.06, y: -4 }}
-                whileTap={{ scale: 0.96 }}
-                aria-label="Get started with AISI - free course"
-                role="button"
-                style={{ 
-                  padding: 'clamp(12px, 2vw, 16px) clamp(32px, 4vw, 48px)', 
-                  fontSize: 'clamp(14px, 1.5vw, 16px)',
-                  fontWeight: 700,
-                  background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 100%)',
-                  boxShadow: '0 8px 24px rgba(37, 99, 235, 0.4)',
-                  border: 'none'
-                }}
+        <div className="container" style={{ position: 'relative', zIndex: 5, width: '100%' }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, y: 40, x: -20 }}
+              animate={{ opacity: 1, y: 0, x: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              style={{ maxWidth: '820px', color: 'white' }}
+            >
+              {/* Slide Tag Badge */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05, duration: 0.5 }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '22px', background: 'rgba(255,255,255,0.07)', padding: '9px 20px', borderRadius: '50px', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.18)', boxShadow: '0 4px 24px rgba(0,0,0,0.25)' }}
               >
-                Get Started Free <ArrowRight size={20} />
-              </motion.button>
-              <motion.button
-                className="btn btn-outline"
-                onClick={() => navigateTo('programs')}
-                whileHover={{ scale: 1.06, y: -4 }}
-                whileTap={{ scale: 0.96 }}
-                aria-label="View our AI curriculum"
-                style={{ 
-                  padding: 'clamp(12px, 2vw, 16px) clamp(32px, 4vw, 44px)', 
-                  fontSize: 'clamp(14px, 1.5vw, 16px)', 
-                  borderColor: 'rgba(255,255,255,0.5)',
-                  borderWidth: '2px',
-                  color: 'white', 
-                  background: 'rgba(255,255,255,0.12)', 
-                  backdropFilter: 'blur(12px)',
-                  fontWeight: 700,
-                  transition: 'all 0.3s ease'
-                }}
+                <span style={{ fontWeight: '700', fontSize: '13px', color: 'rgba(255,255,255,0.95)', letterSpacing: '0.5px' }}>{heroSlides[currentSlide].tag}</span>
+              </motion.div>
+
+              {/* Dynamic Heading per slide */}
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.12, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(36px, 5.5vw, 72px)', lineHeight: '1.08', fontWeight: 900, marginBottom: '20px', letterSpacing: '-0.03em', textShadow: '0 4px 32px rgba(0,0,0,0.5)', color: 'white' }}
               >
-                View Curriculum
-              </motion.button>
-            </div>
-            
-            {/* Slide Counter & Animated Dots */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '60px' }}>
-              <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                Slide {currentSlide + 1} of {heroSlides.length}
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '8px' }}>
-                {heroSlides.map((_, idx) => (
-                  <motion.div 
-                    key={idx} 
-                    onClick={() => setCurrentSlide(idx)}
-                    whileHover={{ scale: 1.2 }}
-                    animate={{
-                      width: currentSlide === idx ? '30px' : '10px',
-                      backgroundColor: currentSlide === idx ? 'var(--primary)' : 'rgba(255,255,255,0.5)'
-                    }}
-                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                    style={{ 
-                      height: '10px', 
-                      borderRadius: '5px',
-                      cursor: 'pointer',
-                      boxShadow: currentSlide === idx ? '0 4px 16px rgba(37,99,235,0.4)' : 'none'
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={`Go to slide ${idx + 1}`}
-                    onKeyDown={(e) => { if (e.key === 'Enter') setCurrentSlide(idx); }}
-                  />
-                ))}
-              </div>
-            </div>
-          </motion.div>
+                {heroSlides[currentSlide].heading} <br />
+                <span style={{ fontFamily: 'Space Grotesk, sans-serif', background: 'linear-gradient(135deg, #60A5FA 0%, #06B6D4 50%, #818CF8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontWeight: 800 }}>{heroSlides[currentSlide].headingAccent}</span>
+              </motion.h1>
+
+              {/* Dynamic Subtext per slide */}
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.22, duration: 0.6 }}
+                style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.88)', marginBottom: '40px', lineHeight: '1.75', maxWidth: '540px', fontWeight: 400, textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}
+              >
+                {heroSlides[currentSlide].sub}
+              </motion.p>
+
+              {/* Fixed Partner Badge below subtext */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '32px', background: 'rgba(0,0,0,0.3)', padding: '7px 18px', borderRadius: '50px', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)' }}
+              >
+                <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22C55E', boxShadow: '0 0 8px #22C55E', flexShrink: 0 }} />
+                <span style={{ color: '#93C5FD', fontWeight: '700', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '1.5px' }}>Strategic Partner:</span>
+                <a href="https://strinttechnologies.com/" target="_blank" rel="noreferrer" style={{ fontWeight: '800', fontSize: '11px', color: 'white', textDecoration: 'none', letterSpacing: '0.5px' }}>STRINT TECHNOLOGIES</a>
+              </motion.div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.6 }}
+                style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}
+              >
+                <motion.button
+                  className="btn btn-primary btn-glow btn-pulse"
+                  onClick={() => navigateTo('contact')}
+                  whileHover={{ scale: 1.06, y: -4 }}
+                  whileTap={{ scale: 0.96 }}
+                  style={{ padding: 'clamp(13px, 2vw, 18px) clamp(32px, 4vw, 52px)', fontSize: 'clamp(14px, 1.5vw, 17px)', fontWeight: 800, background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 60%, #06B6D4 100%)', boxShadow: '0 8px 32px rgba(37,99,235,0.5)', border: 'none' }}
+                >
+                  Get Started Free <ArrowRight size={20} />
+                </motion.button>
+                <motion.button
+                  onClick={() => navigateTo('programs')}
+                  whileHover={{ scale: 1.06, y: -4 }}
+                  whileTap={{ scale: 0.96 }}
+                  style={{ padding: 'clamp(13px, 2vw, 18px) clamp(28px, 4vw, 44px)', fontSize: 'clamp(14px, 1.5vw, 17px)', border: '2px solid rgba(255,255,255,0.35)', color: 'white', background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', fontWeight: 700, borderRadius: '9999px', cursor: 'pointer', fontFamily: 'Inter, sans-serif', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                >
+                  View Curriculum
+                </motion.button>
+              </motion.div>
+
+              {/* Dots + Counter Row */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+                style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '56px' }}
+              >
+                <div className="hero-dots">
+                  {heroSlides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      className={`hero-dot${currentSlide === idx ? ' active' : ''}`}
+                      onClick={() => { setCurrentSlide(idx); setAutoPlayProgress(0); }}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+                <div className="hero-slide-counter">
+                  <span className="current">{String(currentSlide + 1).padStart(2, '0')}</span>
+                  <span style={{ margin: '0 4px', opacity: 0.4 }}>/</span>
+                  <span>{String(heroSlides.length).padStart(2, '0')}</span>
+                </div>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </header>
 

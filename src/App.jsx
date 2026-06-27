@@ -147,7 +147,7 @@ function AnimatedCounter({ target, suffix = '', duration = 1800 }) {
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
-  const [selectedGrade, setSelectedGrade] = useState(7);
+  const [selectedGrade, setSelectedGrade] = useState(6);
   const [selectedMember, setSelectedMember] = useState(null);
   const [selectedRecognition, setSelectedRecognition] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -189,153 +189,146 @@ function App() {
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   const programs = [
-    { id: 7, title: "AI Foundation", desc: "For Class 7: Logical thinking and basic AI patterns.", rating: 4.9, students: "12,400+", popular: true },
-    { id: 8, title: "Neural Builder", desc: "For Class 8: Deep dive into ML and data perception.", rating: 4.8, students: "8,200+", popular: false },
-    { id: 9, title: "System Innovator", desc: "For Class 9: Advanced Neural Nets and Python AI.", rating: 5.0, students: "5,600+", popular: true }
+    { id: 6, title: "AI Foundations", desc: "For Class 6: AI awareness, logical thinking & digital world basics.", rating: 4.9, students: "15,200+", popular: false },
+    { id: 7, title: "AI Explorer", desc: "For Class 7: ML basics, data patterns & Scratch block coding start.", rating: 4.9, students: "12,400+", popular: true },
+    { id: 8, title: "AI Master", desc: "For Class 8: AI systems understanding & advanced block coding.", rating: 4.8, students: "8,200+", popular: false },
+    { id: 9, title: "AI Innovator", desc: "For Class 9: Python intro, real AI projects & career awareness.", rating: 5.0, students: "5,600+", popular: true }
   ];
 
   const syllabusData = {
-    7: {
-      title: "The AI Explorer (Class 7)",
-      level: "Foundation Roadmap",
+    6: {
+      title: "AI Foundations (Class 6)",
+      level: "🟢 Beginner — AI Awareness + Logical Thinking",
       modules: [
-        { 
-          unit: "01", 
-          title: "AI Mindset & Basics", 
-          theory: "• Concepts: Intelligence vs Automation, Sensing vs Thinking.\n• Sub-topics: History (Alan Turing, Deep Blue), Types of AI (Narrow vs General), AI in Daily Life.\n• Concepts: How machines learn from experience.", 
-          practical: "• Lab: AI Scavenger Hunt on smartphones.\n• Activity: Sorting 'Smart' vs 'Dumb' devices.",
-          test: "MCQ Quiz (20 min) + Logic Puzzle"
+        {
+          unit: "01",
+          title: "Introduction to AI",
+          theory: "• What is Artificial Intelligence?\n• AI vs Human vs Machine — differences & similarities\n• AI in daily life: examples around us\n• How machines think and make decisions",
+          practical: "• Activity: Identify AI devices at home\n• Game: Smart vs Non-Smart device sorting challenge",
+          test: "AI Awareness Quiz + Discussion"
         },
-        { 
-          unit: "02", 
-          title: "Logic & Algorithms", 
-          theory: "• Concepts: Boolean Logic, Conditionals, Flowcharts.\n• Sub-topics: Binary numbers (0s & 1s), Truth Tables (AND, OR, NOT), Sequencing.\n• Logic: Step-by-step problem solving.", 
-          practical: "• Lab: Designing an algorithm for 'Robot Teacher' to draw a circle.\n• Game: Logic gate simulator.",
-          test: "Algorithmic Flowchart Design Test"
+        {
+          unit: "02",
+          title: "Computers & Digital World",
+          theory: "• Input – Process – Output model explained\n• Hardware vs Software — what's the difference?\n• Digital devices around us: computers, tablets, phones\n• How data moves through a computer",
+          practical: "• Lab: Identify hardware & software on a computer\n• Activity: Input-Process-Output chart for daily tasks",
+          test: "Digital World MCQ Quiz"
         },
-        { 
-          unit: "03", 
-          title: "Data Literacy", 
-          theory: "• Concepts: Variables, Datasets, Patterns.\n• Sub-topics: Quantitative vs Qualitative data, Data Bias, Noise in Data.\n• Analysis: Finding trends in simple lists.", 
-          practical: "• Lab: Creating a Class Hobby Dataset.\n• Project: Visualizing data using manual charts.",
-          test: "Data Interpretation Lab Assessment"
+        {
+          unit: "03",
+          title: "Thinking Like a Computer",
+          theory: "• Step-by-step thinking — breaking problems into parts\n• Instructions vs Commands — how computers understand us\n• Introduction to Algorithms: what and why\n• Sequencing: order matters in computing",
+          practical: "• Activity: Write instructions to make a sandwich (algorithm)\n• Game: Sequence sorting activity",
+          test: "Algorithm Design Mini-Test"
         },
-        { 
-          unit: "04", 
-          title: "Computer Vision Intro", 
-          theory: "• Concepts: Image Pixels, RGB Color Model, Grayscale.\n• Sub-topics: Feature Extraction, Image classification basics, Filters.\n• Logic: How AI 'sees' shapes.", 
-          practical: "• Lab: Training a Color Detector using block coding.\n• Activity: Image decomposition into pixels.",
-          test: "Object Detection Practical Lab"
+        {
+          unit: "04",
+          title: "Introduction to Data",
+          theory: "• What is data? Why does it matter?\n• Simple examples: text, images, numbers\n• Data in real life: surveys, weather, scores\n• How AI uses data to learn and make decisions",
+          practical: "• Lab: Class survey — collect & organize data\n• Project: Create a simple bar chart from collected data",
+          test: "Data Literacy Assessment"
+        }
+      ]
+    },
+    7: {
+      title: "AI Explorer (Class 7)",
+      level: "🟡 Intermediate — Data + ML Basics + Scratch Coding",
+      modules: [
+        {
+          unit: "01",
+          title: "How AI Learns",
+          theory: "• Machine Learning basics — what it means\n• Learning from examples: how AI trains on data\n• Prediction concept: how AI guesses the future\n• Smart recommendations: YouTube, Netflix, Spotify",
+          practical: "• Lab: Train Your AI Game (Teachable Machine)\n• Activity: Feed examples and see AI predictions",
+          test: "ML Concept Quiz + Prediction Challenge"
         },
-        { 
-          unit: "05", 
-          title: "NLP Foundations", 
-          theory: "• Concepts: Syntax, Semantics, Tokenization.\n• Sub-topics: Keywords, Rule-based Chatbots, Voice recognition logic.\n• Interaction: Communicating with AI.", 
-          practical: "• Lab: Building 'Airi' - Your first rule-based Chatbot.\n• Activity: Voice command mapping.",
-          test: "Chatbot Logic Mapping Project"
+        {
+          unit: "02",
+          title: "Data & Patterns",
+          theory: "• Types of data: numbers, images, text, audio\n• Organizing data into tables and charts\n• Pattern recognition: finding hidden trends\n• How patterns help AI make smarter decisions",
+          practical: "• Lab: Class Hobby Dataset — organize & chart data\n• Activity: Find patterns in weather or sports data",
+          test: "Data Pattern Recognition Lab"
         },
-        { 
-          unit: "06", 
-          title: "Ethics & Safety", 
-          theory: "• Concepts: Privacy, Deepfakes, AI Safety.\n• Sub-topics: Digital footprints, Facial recognition ethics, Bias in data.\n• Policy: Rules for responsible AI usage.", 
-          practical: "• Lab: Spotting a Deepfake Challenge.\n• Project: Creating an 'AI Bill of Rights'.",
-          test: "Ethics Case Study Presentation"
+        {
+          unit: "03",
+          title: "Computational Thinking",
+          theory: "• Decomposition: breaking big problems into small parts\n• Sequence: putting steps in the right order\n• Logic building: IF-THEN thinking\n• Abstraction: focusing on what's important",
+          practical: "• Activity: Decompose a school event planning problem\n• Game: Logic puzzle solving challenge",
+          test: "Computational Thinking Problem Set"
+        },
+        {
+          unit: "04",
+          title: "Programming Basics (Scratch)",
+          theory: "• What is coding? Why do we code?\n• Block coding introduction — no typing needed!\n• Events: what happens when you click Start or press a key\n• Simple animations: making sprites move and talk",
+          practical: "• Lab: Create your first Scratch project\n• Project: Build a simple animated story or game",
+          test: "Scratch Project Showcase"
         }
       ]
     },
     8: {
-      title: "The AI Builder (Class 8)",
-      level: "Intermediate Roadmap",
+      title: "AI Master (Class 8)",
+      level: "🔵 Advanced — AI Systems + Advanced Block Coding",
       modules: [
-        { 
-          unit: "01", 
-          title: "Machine Learning Core", 
-          theory: "• What is Machine Learning? How computers learn from examples.\n• Three ways ML works: Learning from labeled data, Finding patterns in unlabeled data, Learning by trying & getting rewards.\n• Simple 7-step process: Get data → Clean it → Choose model → Train → Test → Improve → Deploy.", 
-          practical: "• Lab: Teach the computer to recognize gestures (hand signs) using Google's easy tool.\n• Project: Build a music player that plays songs when you make specific hand moves.",
-          test: "Create a working AI model & explain how it learned"
+        {
+          unit: "01",
+          title: "Machine Learning Deep Basics",
+          theory: "• How AI models are trained — step by step\n• Good data vs bad data: why quality matters\n• Predictions in AI: accuracy and errors\n• Supervised vs Unsupervised learning overview",
+          practical: "• Lab: Train an AI to recognize gestures (Teachable Machine)\n• Activity: Compare good data vs bad data results",
+          test: "ML Model Training Challenge"
         },
-        { 
-          unit: "02", 
-          title: "Predicting Trends with Numbers", 
-          theory: "• Finding patterns in data: If more rain happens, plants grow taller.\n• Simple line to show the connection between two things (X and Y on a graph).\n• How to spot trends: Is something going up, down, or staying same?\n• Basic math: Average (mean), and drawing a best-fit line through dots.", 
-          practical: "• Lab: Use a plant - measure height & water given, create a chart.\n• Activity: Predict tomorrow's temperature based on past data in spreadsheets.",
-          test: "Make predictions & check if they were correct"
+        {
+          unit: "02",
+          title: "AI Applications",
+          theory: "• AI for images (Computer Vision): how machines see\n• AI for text (Natural Language Processing): how machines read\n• Real-world AI examples: healthcare, agriculture, transport\n• How AI is changing every industry",
+          practical: "• Lab: Explore computer vision using Teachable Machine\n• Activity: Build a basic text classifier",
+          test: "AI Applications Presentation"
         },
-        { 
-          unit: "03", 
-          title: "Computer Vision Lab - Seeing with AI", 
-          theory: "• How computers see: Breaking images into tiny squares (pixels).\n• Finding edges in pictures (where colors change sharply).\n• Face detection: Teaching AI to find faces in photos (like Instagram).\n• Recognizing humans and their body positions (sitting, standing, waving).", 
-          practical: "• Lab: Build automatic attendance using face recognition - camera recognizes students.\n• Activity: Create a system that alerts when someone is not wearing a mask.",
-          test: "Build a working AI system that recognizes & responds"
+        {
+          unit: "03",
+          title: "Programming — Advanced Scratch",
+          theory: "• Conditions (IF logic): making decisions in code\n• Loops (repeat idea): doing things multiple times\n• Variables in Scratch: storing information\n• Game development basics: characters, scores, levels",
+          practical: "• Lab: Build a quiz game with IF conditions\n• Project: Create a complete game with loops and scoring",
+          test: "Scratch Advanced Game Project"
         },
-        { 
-          unit: "04", 
-          title: "Teaching AI to Understand Feelings", 
-          theory: "• How AI reads emotions from words: Happy, sad, angry, excited?\n• Breaking sentences into important words (ignoring 'the', 'is', 'a').\n• Counting good & bad words to understand emotions.\n• Challenge: Understanding sarcasm (when people say opposite of what they mean).", 
-          practical: "• Lab: Build a Twitter-like tool that shows if comments are positive or negative.\n• Project: Create a friendly chatbot that replies in multiple languages.",
-          test: "Build a tool that understands feelings in text"
-        },
-        { 
-          unit: "05", 
-          title: "Building the Brain - Simple Neural Networks", 
-          theory: "• What is a neuron? A tiny decision-maker (like brain cells).\n• Connections & weights: Strong connections vs weak connections between neurons.\n• Layers of neurons: Information goes in → gets processed → comes out.\n• How to improve: Fix mistakes by going backward & adjusting (like learning from errors).", 
-          practical: "• Interactive game: Watch a simple brain learn in real-time on screen.\n• Activity: Manually calculate how one neuron makes a decision.",
-          test: "Explain how a simple brain thinks"
-        },
-        { 
-          unit: "06", 
-          title: "Decision Trees - AI Making Choices", 
-          theory: "• Decision trees are like 'If-Then' games: If sick, go to doctor. If not, stay home.\n• Branches & leaves: Each question splits the path into new choices.\n• Building a tree: Ask yes/no questions to separate data into groups.\n• Random forests: Lots of trees voting together to make better decisions.", 
-          practical: "• Lab: Build a 'Doctor AI' tree: Is it a cold, flu, or allergies? (based on symptoms).\n• Project: Create a simple game AI for Tic-Tac-Toe using decision logic.",
-          test: "Design a decision tree for a real-world problem"
+        {
+          unit: "04",
+          title: "AI Ethics & Safety",
+          theory: "• Safe AI usage: rules for responsible AI\n• Privacy awareness: your digital footprint\n• Responsible AI: bias, fairness, transparency\n• Deepfakes and misinformation awareness",
+          practical: "• Lab: Spot the Deepfake challenge\n• Project: Create an AI Safety Poster or Bill of Rights",
+          test: "AI Ethics Case Study Presentation"
         }
       ]
     },
     9: {
-      title: "The AI Innovator (Class 9)",
-      level: "Advanced Roadmap",
+      title: "AI Innovator (Class 9)",
+      level: "🔴 Expert — Python Intro + Real AI Projects",
       modules: [
-        { 
-          unit: "01", 
-          title: "Learning Python the AI Way", 
-          theory: "• How to write AI code in Python\n• Lists, dictionaries, and storing data\n• Making AI code neat and reusable\n• Handling mistakes in code", 
-          practical: "• Build sorting and filtering tools\n• Create automation scripts\n• Practice writing clean code",
-          test: "Python Skills Check"
+        {
+          unit: "01",
+          title: "AI in the Real World",
+          theory: "• AI in healthcare: diagnosis, treatment, research\n• AI in transport: self-driving cars, navigation\n• AI in education: personalized learning\n• Industry applications & future of AI",
+          practical: "• Activity: Research real AI applications in India\n• Discussion: How AI will change your career",
+          test: "Industry AI Awareness Quiz"
         },
-        { 
-          unit: "02", 
-          title: "Understanding Data with Tools", 
-          theory: "• What are dataframes? (like super-smart spreadsheets)\n• Finding and fixing bad data\n• Combining datasets together\n• Organizing messy information", 
-          practical: "• Analyze real datasets\n• Clean up messy data\n• Combine data from different sources",
-          test: "Data Cleaning Challenge"
+        {
+          unit: "02",
+          title: "Problem Solving with AI",
+          theory: "• Real-world problem identification techniques\n• AI solution thinking: how to frame problems\n• Project planning: from idea to prototype\n• Team collaboration in tech projects",
+          practical: "• Workshop: Identify a community problem & design AI solution\n• Activity: Create a project proposal",
+          test: "Problem-Solution Proposal"
         },
-        { 
-          unit: "03", 
-          title: "Math Behind the Magic", 
-          theory: "• Statistics that AI uses\n• Understanding probabilities\n• Matrix math (for AI brains)\n• Why math matters in AI", 
-          practical: "• Matrix math with code\n• Visualize patterns in data\n• Understand averages and spreads",
-          test: "Math Problem Set"
+        {
+          unit: "03",
+          title: "Python Programming Basics",
+          theory: "• What is Python? Why Python for AI?\n• Variables: storing and using data in Python\n• Input/Output: getting data from users\n• Writing simple Python programs step by step",
+          practical: "• Lab: Write first Python programs (calculator, greeter)\n• Activity: Build a simple number guessing game in Python",
+          test: "Python Basics Coding Test"
         },
-        { 
-          unit: "04", 
-          title: "Building Smart Brains - Deep Learning", 
-          theory: "• How do neural networks really work?\n• Learning from mistakes (like humans)\n• Different types of neurons\n• Making AI smarter step by step", 
-          practical: "• Train AI to recognize handwriting\n• Build a neural network from scratch\n• See how AI learns in real-time",
-          test: "Build & Train a Model"
-        },
-        { 
-          unit: "05", 
-          title: "Teaching Computers to See", 
-          theory: "• How computers 'look' at images\n• Finding objects in pictures\n• Real-time video processing\n• Using cameras with AI", 
-          practical: "• Build gesture recognition (hand signals)\n• Create special visual effects\n• Process video from camera",
-          test: "Live Vision Demo"
-        },
-        { 
-          unit: "06", 
-          title: "Your Real AI Project", 
-          theory: "• Planning an AI project from idea to reality\n• How to deploy AI (make it live)\n• Presenting your work\n• Starting your AI career", 
-          practical: "• Build your own AI project\n• Make it work on the web\n• Present to judges\n• Get feedback and improve",
-          test: "Final Project Showcase"
+        {
+          unit: "04",
+          title: "AI Projects",
+          theory: "• Mini AI project design: planning and building\n• Team project: working together to solve real problems\n• Presentation skills: how to showcase your work\n• Career awareness: AI jobs and opportunities",
+          practical: "• Build a mini AI project (chatbot, classifier, or predictor)\n• Team project showcase and demonstration\n• Present to judges and receive feedback",
+          test: "Final AI Project Showcase"
         }
       ]
     }
@@ -879,197 +872,135 @@ function App() {
       {/* ===== RECOGNITIONS LOGO STRIP ON LANDING PAGE ===== */}
       <section style={{
         padding: '80px 0',
-        padding: '100px 0',
-        background: 'linear-gradient(135deg, #0a0f2e 0%, #0d1b4b 40%, #0f2460 70%, #0a0f2e 100%)',
+        background: 'linear-gradient(180deg, var(--bg-subtle) 0%, var(--bg-card) 100%)',
+        borderBottom: '1px solid var(--border)',
         overflow: 'hidden',
         position: 'relative'
       }}>
-        {/* Animated glowing orbs */}
-        <div style={{ position: 'absolute', top: '-80px', left: '-80px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '-100px', right: '-60px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%,-50%)', width: '600px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-
-        {/* Top shimmer line */}
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, transparent 0%, #2563EB 30%, #06B6D4 60%, #4f46e5 80%, transparent 100%)' }} />
-
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          {/* Header */}
-          <motion.div {...fadeIn} style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                background: 'rgba(37,99,235,0.15)',
-                padding: '10px 26px',
-                borderRadius: '50px',
-                border: '1px solid rgba(37,99,235,0.4)',
-                backdropFilter: 'blur(10px)',
-                marginBottom: '20px'
-              }}
-            >
-              <ShieldCheck size={16} color="#60A5FA" />
-              <span style={{ color: '#60A5FA', fontWeight: '800', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '3px' }}>TRUSTED & RECOGNIZED BY</span>
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 'clamp(26px, 4vw, 44px)',
-                fontWeight: 900,
-                color: 'white',
-                margin: '0 0 12px',
-                letterSpacing: '-0.02em'
-              }}
-            >
-              Backed by India's{' '}
-              <span style={{ background: 'linear-gradient(135deg, #60A5FA 0%, #06B6D4 50%, #818CF8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                Top Authorities
-              </span>
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              style={{ color: 'rgba(255,255,255,0.6)', fontSize: '16px', maxWidth: '520px', margin: '0 auto', lineHeight: '1.7' }}
-            >
-              Our programs are nationally accredited by the most prestigious government bodies ensuring every certificate carries real weight.
-            </motion.p>
+        {/* Decorative background elements */}
+        <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '4px', background: 'linear-gradient(90deg, var(--primary), #4f46e5, var(--primary))' }}></div>
+        
+        <div className="container">
+          <motion.div {...fadeIn} style={{ textAlign: 'center', marginBottom: '50px' }}>
+            <div style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '12px', 
+              background: 'linear-gradient(135deg, rgba(0,101,255,0.08), rgba(79,70,229,0.08))', 
+              padding: '10px 24px', 
+              borderRadius: '50px',
+              border: '1px solid rgba(0,101,255,0.15)',
+              marginBottom: '16px'
+            }}>
+              <ShieldCheck size={18} color="var(--primary)" />
+              <span style={{ color: 'var(--primary)', fontWeight: '800', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '3px' }}>TRUSTED & RECOGNIZED BY</span>
+            </div>
+            <h2 style={{ fontSize: '32px', color: 'var(--navy)', margin: '12px 0 0', fontWeight: '800' }}>Our Government Recognitions</h2>
           </motion.div>
 
-          {/* Logo Cards — Animated Marquee Row */}
-          <div style={{ position: 'relative', overflow: 'hidden' }}>
-            {/* Left fade */}
-            <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: '120px', background: 'linear-gradient(to right, #0a0f2e, transparent)', zIndex: 2, pointerEvents: 'none' }} />
-            {/* Right fade */}
-            <div style={{ position: 'absolute', right: 0, top: 0, height: '100%', width: '120px', background: 'linear-gradient(to left, #0a0f2e, transparent)', zIndex: 2, pointerEvents: 'none' }} />
-
-            <motion.div
-              style={{ display: 'flex', gap: '24px', width: 'max-content' }}
-              animate={{ x: ['0%', '-50%'] }}
-              transition={{ duration: 18, ease: 'linear', repeat: Infinity }}
-            >
-              {[...Object.keys(recognitionsData), ...Object.keys(recognitionsData)].map((key, i) => {
-                const realKey = Object.keys(recognitionsData)[i % Object.keys(recognitionsData).length];
-                const rec = recognitionsData[realKey];
-                return (
-                  <motion.div
-                    key={`${key}-${i}`}
-                    whileHover={{ scale: 1.08, y: -8 }}
-                    onClick={() => navigateTo('recognition-detail', realKey)}
-                    style={{
-                      cursor: 'pointer',
-                      flexShrink: 0,
-                      width: '200px',
-                      padding: '28px 20px',
-                      background: 'rgba(255,255,255,0.05)',
-                      backdropFilter: 'blur(20px)',
-                      borderRadius: '24px',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '16px',
-                      minHeight: '170px',
-                      transition: 'all 0.3s ease',
-                      position: 'relative',
-                      overflow: 'hidden'
-                    }}
-                  >
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(6,182,212,0.05) 100%)', borderRadius: '24px', pointerEvents: 'none' }} />
-                    <div style={{
-                      width: '80px', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      background: 'white', borderRadius: '50%',
-                      boxShadow: '0 0 0 4px rgba(255,255,255,0.1), 0 8px 24px rgba(0,0,0,0.3)',
-                      position: 'relative', zIndex: 1
-                    }}>
-                      <img src={rec.logo} alt={rec.title} loading="lazy" style={{ height: '50px', maxWidth: '60px', objectFit: 'contain' }} />
-                    </div>
-                    <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-                      <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'rgba(255,255,255,0.95)', textTransform: 'uppercase', letterSpacing: '0.8px', lineHeight: '1.4' }}>
-                        {rec.title}
-                      </span>
-                      <span style={{ display: 'inline-block', marginTop: '8px', padding: '3px 10px', background: 'rgba(37,99,235,0.3)', borderRadius: '50px', fontSize: '9px', fontWeight: '700', color: '#93C5FD', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
-                        {rec.badge.split(' ')[0]}
-                      </span>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </div>
-
-          </div>
-
-          {/* Stats strip */}
+          {/* Logo Cards Grid */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            {...fadeIn}
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              flexWrap: 'wrap',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              border: '1px solid rgba(255,255,255,0.08)',
-              background: 'rgba(255,255,255,0.04)',
-              backdropFilter: 'blur(10px)',
-              maxWidth: '900px',
-              margin: '60px auto 0'
+              display: 'grid',
+              gridTemplateColumns: 'repeat(5, 1fr)',
+              gap: '24px',
+              maxWidth: '1100px',
+              margin: '0 auto'
             }}
+            className="recognitions-grid"
           >
-            {[
-              { value: '5', label: 'Govt. Recognitions', icon: '🏛️' },
-              { value: '25K+', label: 'Certified Students', icon: '🎓' },
-              { value: '100%', label: 'Verified Credentials', icon: '✅' },
-              { value: '30+', label: 'Industry Partners', icon: '🤝' }
-            ].map((stat, i) => (
-              <div
-                key={i}
+            {Object.keys(recognitionsData).map((key, i) => (
+              <motion.div
+                key={key}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.12, duration: 0.5 }}
+                whileHover={{ scale: 1.08, y: -10, boxShadow: '0 20px 40px rgba(0,101,255,0.15)' }}
+                onClick={() => navigateTo('recognition-detail', key)}
                 style={{
-                  flex: '1 1 180px',
-                  padding: '28px 24px',
-                  textAlign: 'center',
-                  borderRight: i < 3 ? '1px solid rgba(255,255,255,0.08)' : 'none'
+                  cursor: 'pointer',
+                  padding: '28px 20px',
+                  background: 'var(--bg-card)',
+                  borderRadius: '24px',
+                  border: '2px solid var(--border)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '16px',
+                  minHeight: '160px',
+                  transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
               >
-                <div style={{ fontSize: '24px', marginBottom: '6px' }}>{stat.icon}</div>
-                <div style={{ fontSize: '28px', fontWeight: '900', color: 'white', fontFamily: 'Poppins, sans-serif', lineHeight: 1 }}>{stat.value}</div>
-                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '6px', fontWeight: '600', letterSpacing: '0.5px', textTransform: 'uppercase' }}>{stat.label}</div>
-              </div>
+                {/* Subtle gradient overlay on hover */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(180deg, transparent 60%, rgba(0,101,255,0.03) 100%)',
+                  borderRadius: '22px',
+                  pointerEvents: 'none'
+                }}></div>
+
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'white',
+                  borderRadius: '50%',
+                  border: '2px solid #f0f4ff',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  <img
+                    src={recognitionsData[key].logo}
+                    alt={recognitionsData[key].title}
+                    loading="lazy"
+                    style={{
+                      height: '50px',
+                      maxWidth: '60px',
+                      objectFit: 'contain',
+                      filter: theme === 'dark' ? 'brightness(1.3) contrast(1.1)' : 'none',
+                      transition: 'filter 0.3s ease'
+                    }}
+                  />
+                </div>
+                <span style={{
+                  fontSize: '12px',
+                  fontWeight: '800',
+                  color: 'var(--navy)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  textAlign: 'center',
+                  lineHeight: '1.3',
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  {recognitionsData[key].title}
+                </span>
+              </motion.div>
             ))}
           </motion.div>
 
-          {/* CTA */}
-          <motion.div {...fadeIn} style={{ textAlign: 'center', marginTop: '48px' }}>
-            <motion.button
-              className="btn btn-primary btn-glow"
-              style={{ padding: '14px 44px', fontSize: '15px', fontWeight: 700, background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 50%, #06B6D4 100%)', border: 'none', boxShadow: '0 8px 32px rgba(37,99,235,0.4)' }}
+          <motion.div {...fadeIn} style={{ textAlign: 'center', marginTop: '40px' }}>
+            <motion.button 
+              className="btn btn-primary btn-glow" 
+              style={{ padding: '14px 40px', fontSize: '15px', fontWeight: 700, background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 100%)' }} 
               onClick={() => navigateTo('recognitions')}
-              whileHover={{ scale: 1.06, y: -4, boxShadow: '0 12px 40px rgba(37,99,235,0.55)' }}
+              whileHover={{ scale: 1.06, y: -3 }}
               whileTap={{ scale: 0.96 }}
             >
               View All Recognitions <ArrowRight size={18} style={{ marginLeft: '10px' }} />
             </motion.button>
           </motion.div>
         </div>
-
-        {/* Bottom shimmer line */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, transparent 0%, #4f46e5 30%, #2563EB 60%, #06B6D4 80%, transparent 100%)' }} />
       </section>
 
       <section className="container section">
@@ -1171,7 +1102,7 @@ function App() {
             >
               {p.popular && <span className="popular-badge">MOST POPULAR</span>}
               <div className="card-icon-box">
-                {p.id === 7 ? <Brain /> : p.id === 8 ? <Zap /> : <Rocket />}
+              {p.id === 6 ? <Lightbulb /> : p.id === 7 ? <Brain /> : p.id === 8 ? <Zap /> : <Rocket />}
               </div>
               <h3>{p.title}</h3>
               <p>{p.desc}</p>
@@ -1507,7 +1438,7 @@ function App() {
 
       {/* Grade Quick Selection Grid */}
       <div className="grade-selector-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-         {[7, 8, 9].map(grade => (
+         {[6, 7, 8, 9].map(grade => (
             <motion.div 
                key={grade}
                whileHover={{ y: -10 }}
@@ -1529,15 +1460,17 @@ function App() {
 
   const renderSyllabusPage = (grade) => {
     const gradeImages = {
+      6: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
       7: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80",
       8: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80",
       9: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80"
     };
 
     const gradeColors = {
+      6: { primary: 'rgba(5, 150, 105, 0.75)', secondary: '#059669', accent: '#34D399' },
       7: { primary: 'rgba(30, 58, 138, 0.7)', secondary: '#2563EB', accent: '#60A5FA' },
       8: { primary: 'rgba(79, 39, 245, 0.7)', secondary: '#7C3AED', accent: '#A78BFA' },
-      9: { primary: 'rgba(30, 64, 175, 0.7)', secondary: '#1D4ED8', accent: '#3B82F6' }
+      9: { primary: 'rgba(185, 28, 28, 0.7)', secondary: '#DC2626', accent: '#F87171' }
     };
 
     const moduleIcons = {
@@ -1607,7 +1540,7 @@ function App() {
               ← Back to Programs
             </motion.button>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              {[7, 8, 9].map(g => (
+              {[6, 7, 8, 9].map(g => (
                 <motion.button 
                   key={g} 
                   onClick={() => navigateTo('syllabus', g)}
@@ -1767,360 +1700,226 @@ function App() {
   // ========== CURRICULUM DATA ==========
   const curriculumData = {
     6: {
-      title: "AISI AI Foundations – Level 1",
-      subtitle: "Class 6 Curriculum",
-      duration: "10 Days | 45 Hours",
-      color: "#2563EB",
+      title: "AI Foundations – Class 6",
+      subtitle: "🟢 AI Awareness + Logical Thinking",
+      duration: "3 Workshop Days | 3 Core Sessions",
+      color: "#059669",
       icon: <Lightbulb size={28} />,
       days: [
         {
           day: 1,
-          module: "Module 1: Introduction to Artificial Intelligence",
-          topics: ["What is Artificial Intelligence?", "AI vs Human Intelligence", "History of AI", "AI Around Us", "Applications of AI"],
-          practical: "Identifying AI in Daily Life"
+          module: "Unit 1: Introduction to AI",
+          topics: ["What is Artificial Intelligence?", "AI vs Human vs Machine", "AI in daily life", "Simple examples of AI around us"],
+          practical: "Explore AI tools in daily life and sort smart vs non-smart devices"
         },
         {
           day: 2,
-          module: "Module 2: Understanding How AI Works",
-          topics: ["Data and Information", "Patterns and Predictions", "Decision Making in AI", "How AI Learns from Data"],
-          practical: "Pattern Recognition Activities"
+          module: "Unit 2: Computers & Digital World",
+          topics: ["Input – Process – Output", "Hardware vs Software", "Digital devices around us", "How computers follow instructions"],
+          practical: "Identify devices, hardware, software and complete an input-process-output chart"
         },
         {
           day: 3,
-          module: "Module 3: Computational Thinking",
-          topics: ["Problem Solving Fundamentals", "Decomposition", "Pattern Recognition", "Logical Thinking", "Sequencing"],
-          practical: "Real-World Problem Breakdown"
-        },
-        {
-          day: 4,
-          module: "Module 4: Algorithms in Everyday Life",
-          topics: ["What is an Algorithm?", "Step-by-Step Instructions", "Everyday Algorithms", "Flow of Actions"],
-          practical: "Design Your Daily Routine Algorithm"
-        },
-        {
-          day: 5,
-          module: "Module 5: Data Literacy",
-          topics: ["What is Data?", "Types of Data", "Data Collection Methods", "Organizing Data", "Basic Data Visualization"],
-          practical: "Classroom Survey Analysis"
-        },
-        {
-          day: 6,
-          module: "Module 6: Introduction to Generative AI",
-          topics: ["What is Generative AI?", "AI Assistants", "Text Generation", "Image Generation", "Educational Uses of AI"],
-          practical: "Exploring AI Tools"
-        },
-        {
-          day: 7,
-          module: "Module 7: Prompt Engineering Fundamentals",
-          topics: ["What is a Prompt?", "Effective Questioning Techniques", "Good vs Poor Prompts", "Creative Prompting"],
-          practical: "Prompt Design Challenge"
-        },
-        {
-          day: 8,
-          module: "Module 8: AI for Creativity",
-          topics: ["AI Storytelling", "AI Art Creation", "AI Brainstorming", "AI-Powered Presentations"],
-          practical: "Create an AI Storybook"
-        },
-        {
-          day: 9,
-          module: "Module 9: Responsible AI",
-          topics: ["AI Ethics", "Privacy and Safety", "Understanding Bias", "Deepfakes Awareness", "Responsible AI Usage"],
-          practical: "AI Ethics Discussion Activity"
-        },
-        {
-          day: 10,
-          module: "Module 10: Capstone Project & Showcase",
-          topics: ["Project Themes: AI for Education, Environment, Community, Daily Life", "Project Planning", "Solution Design", "Presentation Skills", "Project Showcase"],
-          practical: "Final Project Presentation"
+          module: "Unit 3: Thinking Like a Computer",
+          topics: ["Step-by-step thinking", "Instructions vs Commands", "Algorithms basics", "Introduction to data and patterns"],
+          practical: "Write simple instructions and solve a sequencing activity"
         }
       ],
       outcomes: [
-        "Understand AI fundamentals",
-        "Identify AI applications in daily life",
-        "Apply computational thinking skills",
-        "Understand basic data concepts",
-        "Use AI tools responsibly",
-        "Create effective prompts",
-        "Generate creative AI-assisted content",
-        "Present AI-powered solutions"
+        "Understand what AI is and how it works",
+        "Distinguish AI from human and machine intelligence",
+        "Identify AI in daily life",
+        "Understand the input-process-output model",
+        "Know the difference between hardware and software",
+        "Think step-by-step like a computer",
+        "Write simple instructions and algorithms",
+        "Understand what data is and why it matters"
       ],
-      competencies: ["AI Literacy", "Digital Literacy", "Computational Thinking", "Problem Solving", "Data Awareness", "Prompt Engineering", "Creativity", "Communication", "Ethical AI Usage", "Innovation Mindset"]
+      competencies: ["AI Awareness", "Digital Literacy", "Logical Thinking", "Algorithm Design", "Data Literacy", "Computational Thinking", "Problem Solving", "Communication"]
     },
     7: {
-      title: "AISI AI Explorer – Level 2",
-      subtitle: "Class 7 Curriculum",
-      duration: "10 Days | 45 Hours",
+      title: "AI Explorer – Class 7",
+      subtitle: "🟡 ML Basics + Data + Scratch Start",
+      duration: "5 Workshop Days | 5 Sessions",
       color: "#7C3AED",
-      icon: <Rocket size={28} />,
-      days: [
-        {
-          day: 1,
-          module: "Day 1: AI Revision & New AI Concepts",
-          topics: ["Recap of Class 6 AI Concepts", "Types of AI", "AI Around Us", "Future of AI"],
-          practical: "AI Hunt"
-        },
-        {
-          day: 2,
-          module: "Day 2: How AI Learns",
-          topics: ["What is Machine Learning?", "Learning from Examples", "Predictions", "Smart Recommendations"],
-          practical: "Train Your AI Game"
-        },
-        {
-          day: 3,
-          module: "Day 3: Understanding Data",
-          topics: ["What is Data?", "Collecting Information", "Organizing Data", "Finding Patterns"],
-          practical: "Class Survey Project"
-        },
-        {
-          day: 4,
-          module: "Day 4: Better Prompt Writing",
-          topics: ["What is a Good Prompt?", "Asking Clear Questions", "Role-Based Prompting", "Creative Prompting"],
-          practical: "Prompt Competition"
-        },
-        {
-          day: 5,
-          module: "Day 5: AI for School Work",
-          topics: ["AI for Homework", "AI for Notes", "AI for Research", "AI for Presentations"],
-          practical: "Create Study Notes with AI"
-        },
-        {
-          day: 6,
-          module: "Day 6: AI for Creativity",
-          topics: ["AI Stories", "AI Images", "AI Posters", "AI Presentations"],
-          practical: "Create an AI Poster"
-        },
-        {
-          day: 7,
-          module: "Day 7: Safe & Responsible AI",
-          topics: ["AI Safety", "Fake Information", "Deepfakes", "Online Responsibility"],
-          practical: "Fact Check Challenge"
-        },
-        {
-          day: 8,
-          module: "Day 8: AI in Different Fields",
-          topics: ["AI in Hospitals", "AI in Farming", "AI in Schools", "AI in Space", "AI in Businesses"],
-          practical: "Industry Exploration"
-        },
-        {
-          day: 9,
-          module: "Day 9: Solving Problems with AI",
-          topics: ["Finding Problems", "Thinking of Solutions", "Using AI to Help", "Team Collaboration"],
-          practical: "Solution Building Workshop"
-        },
-        {
-          day: 10,
-          module: "Day 10: Final AI Project",
-          topics: ["Team Project", "Presentation", "Demonstration", "Certificate Distribution"],
-          practical: "Final Project & Showcase"
-        }
-      ],
-      outcomes: [
-        "Deepen AI Understanding",
-        "Develop Data Awareness",
-        "Master Prompt Writing",
-        "Enhance Creativity with AI",
-        "Strengthen Problem Solving",
-        "Build Teamwork Skills",
-        "Improve Communication",
-        "Practice Responsible AI Usage"
-      ],
-      competencies: ["AI Understanding", "Data Awareness", "Prompt Writing", "Creativity", "Problem Solving", "Teamwork", "Communication", "Responsible AI Usage"]
-    },
-    8: {
-      title: "AISI AI Master – Level 3",
-      subtitle: "Class 8 Curriculum",
-      duration: "12 Days | 60 Hours",
-      color: "#DC2626",
       icon: <Brain size={28} />,
       days: [
         {
           day: 1,
-          module: "Day 1: What is Machine Learning?",
-          topics: ["How computers learn from examples", "Types of learning: Supervised, Unsupervised", "Real-world examples", "How Netflix recommends movies"],
-          practical: "Identify ML in your favorite apps"
+          module: "Unit 1: How AI Learns",
+          topics: ["Machine Learning basics", "Learning from examples", "Prediction concept", "Examples from apps like YouTube and Netflix"],
+          practical: "Try a simple prediction activity using examples"
         },
         {
           day: 2,
-          module: "Day 2: Training an AI Model",
-          topics: ["What is training?", "Good data vs bad data", "Testing your AI", "Accuracy and mistakes"],
-          practical: "Train an AI to recognize emotions"
+          module: "Unit 2: Data & Patterns",
+          topics: ["Types of data", "Organizing data", "Pattern recognition", "Data in real life"],
+          practical: "Organize and analyze a class survey dataset"
         },
         {
           day: 3,
-          module: "Day 3: Understanding Data Better",
-          topics: ["Collecting quality data", "Data organization", "Finding missing data", "Cleaning messy data"],
-          practical: "Clean a real dataset"
+          module: "Unit 3: Computational Thinking",
+          topics: ["Decomposition", "Sequence", "Logic building", "Breaking big problems into smaller steps"],
+          practical: "Solve a simple problem using step-by-step logic"
         },
         {
           day: 4,
-          module: "Day 4: Making Predictions",
-          topics: ["Spotting trends in data", "Using graphs to predict", "Accuracy of predictions", "Real-world predictions"],
-          practical: "Predict sales or weather patterns"
+          module: "Unit 4: Programming Basics (Scratch Start)",
+          topics: ["What is coding?", "Block coding introduction", "Events like start and click", "Simple animations"],
+          practical: "Create a first Scratch animation"
         },
         {
           day: 5,
-          module: "Day 5: Teaching AI to See - Images",
-          topics: ["How computers see pictures", "Finding objects in images", "Face recognition", "Using computer vision"],
-          practical: "Build a face detector using tools"
-        },
-        {
-          day: 6,
-          module: "Day 6: Teaching AI to Understand Words",
-          topics: ["How AI reads text", "Finding emotions in words", "Understanding language", "Building chatbots"],
-          practical: "Build a chatbot that understands feelings"
-        },
-        {
-          day: 7,
-          module: "Day 7: AI Decision Making",
-          topics: ["Decision trees explained simply", "If-Then logic at scale", "Voting systems in AI", "How AI makes choices"],
-          practical: "Design a decision tree for a problem"
-        },
-        {
-          day: 8,
-          module: "Day 8: The Brain Inside AI - Neural Networks",
-          topics: ["What is a neural network?", "Neurons and connections", "How networks learn", "Deep learning basics"],
-          practical: "Watch a neural network learn in real-time"
-        },
-        {
-          day: 9,
-          module: "Day 9: AI Ethics & Safety",
-          topics: ["Bias in AI systems", "Privacy concerns", "Fair AI decisions", "Responsible AI usage", "Laws about AI"],
-          practical: "Spot bias in AI decisions"
-        },
-        {
-          day: 10,
-          module: "Day 10: Building Real AI Projects",
-          topics: ["Project planning steps", "Choosing tools", "Testing your project", "Deploying AI"],
-          practical: "Start your own AI project"
-        },
-        {
-          day: 11,
-          module: "Day 11: AI in Industry",
-          topics: ["AI in hospitals saving lives", "AI in farming helping crops", "AI in schools teaching", "Career paths in AI"],
-          practical: "Interview an AI professional"
-        },
-        {
-          day: 12,
-          module: "Day 12: Showcase Your AI Project",
-          topics: ["Presenting your work", "Explaining AI decisions", "Demo your project", "Getting feedback"],
-          practical: "Final Project Presentation & Awards"
+          module: "Workshop Day: Mini Scratch Project",
+          topics: ["Combine AI ideas with Scratch", "Design an interactive project", "Present your project idea"],
+          practical: "Build and present a mini Scratch project"
         }
       ],
       outcomes: [
-        "Understand machine learning deeply",
-        "Build and train AI models",
-        "Work with real data",
-        "Make AI for images and text",
-        "Understand AI decision-making",
-        "Know AI ethics and safety",
-        "Build real AI projects",
-        "Explore AI career opportunities"
+        "Understand Machine Learning basics",
+        "Know what data is and its types",
+        "Identify patterns in data",
+        "Apply computational thinking skills",
+        "Use decomposition to break problems",
+        "Write simple block code in Scratch",
+        "Create animations using events",
+        "Build a small Scratch project"
       ],
-      competencies: ["Machine Learning", "Data Science", "AI Development", "Problem Solving", "Ethics & Safety", "Project Management", "Presentation", "Innovation"]
+      competencies: ["ML Awareness", "Data Literacy", "Pattern Recognition", "Computational Thinking", "Problem Decomposition", "Block Coding", "Scratch Programming", "Creative Thinking"]
+    },
+    8: {
+      title: "AI Master – Class 8",
+      subtitle: "🔵 Advanced Scratch + AI Concepts",
+      duration: "7 Workshop Days | 7 Sessions",
+      color: "#DC2626",
+      icon: <Zap size={28} />,
+      days: [
+        {
+          day: 1,
+          module: "Unit 1: Machine Learning Deep Basics",
+          topics: ["How models are trained", "Good data vs bad data", "Predictions in AI", "Real examples from apps"],
+          practical: "Compare good and bad training examples"
+        },
+        {
+          day: 2,
+          module: "Unit 2: AI Applications",
+          topics: ["AI for images", "AI for text", "Real-world AI examples", "How AI is used in everyday life"],
+          practical: "Explore AI use cases in images and text"
+        },
+        {
+          day: 3,
+          module: "Unit 3: Programming (Scratch Advanced)",
+          topics: ["Conditions (IF logic)", "Loops (repeat idea)", "Game development basics", "Interactive controls"],
+          practical: "Create a simple Scratch game with conditions"
+        },
+        {
+          day: 4,
+          module: "Unit 4: AI Ethics & Safety",
+          topics: ["Safe AI usage", "Privacy awareness", "Responsible AI", "Bias and fairness"],
+          practical: "Discuss safe and responsible AI use"
+        },
+        {
+          day: 5,
+          module: "Workshop Day: Logic Game Build",
+          topics: ["Design a game flow", "Use logic blocks", "Test your project", "Improve the experience"],
+          practical: "Build and test a mini logic-based game"
+        },
+        {
+          day: 6,
+          module: "Workshop Day: AI Demo Project",
+          topics: ["Plan an AI-powered idea", "Connect concepts to a real problem", "Prepare a short demo"],
+          practical: "Create a demo concept for an AI project"
+        },
+        {
+          day: 7,
+          module: "Workshop Day: Final Showcase",
+          topics: ["Present your work", "Explain your logic", "Share feedback", "Improve your project"],
+          practical: "Present the final Scratch-based AI showcase"
+        }
+      ],
+      outcomes: [
+        "Understand how AI models are trained",
+        "Differentiate good and bad data",
+        "Explore AI applications in vision and language",
+        "Use advanced Scratch logic with conditions and loops",
+        "Apply responsible AI and privacy awareness",
+        "Create an interactive project",
+        "Present ideas confidently"
+      ],
+      competencies: ["AI Systems", "Logic Building", "Scratch Advanced", "Ethics Awareness", "Problem Solving", "Creativity", "Communication", "Project Design"]
     },
     9: {
-      title: "AISI AI Innovator – Level 4",
-      subtitle: "Class 9 Curriculum",
-      duration: "14 Days | 70 Hours",
+      title: "AI Innovator – Class 9",
+      subtitle: "🔴 Python + Real Projects + Career Awareness",
+      duration: "9 Workshop Days | 9 Sessions",
       color: "#1E40AF",
       icon: <Cpu size={28} />,
       days: [
         {
           day: 1,
-          module: "Day 1: Python Basics for AI",
-          topics: ["Writing Python code", "Lists and dictionaries", "Functions and loops", "Organizing your code well"],
-          practical: "Create a simple Python program"
+          module: "Unit 1: AI in Real World",
+          topics: ["AI in healthcare", "AI in transport", "AI in education", "Future of AI"],
+          practical: "Discuss real-world AI applications"
         },
         {
           day: 2,
-          module: "Day 2: Working with Data",
-          topics: ["What are dataframes?", "Loading data", "Finding missing values", "Cleaning messy data"],
-          practical: "Clean a real dataset"
+          module: "Unit 2: Problem Solving with AI",
+          topics: ["Finding real-world problems", "AI solution thinking", "Project planning", "Team brainstorming"],
+          practical: "Identify one problem that can be solved using AI"
         },
         {
           day: 3,
-          module: "Day 3: Understanding Patterns in Data",
-          topics: ["Spotting trends", "Calculating averages", "Finding outliers", "Visualization"],
-          practical: "Analyze and visualize data"
+          module: "Unit 3: Python Programming Basics",
+          topics: ["What is Python?", "Variables", "Input / Output", "Simple programs"],
+          practical: "Write a simple Python program"
         },
         {
           day: 4,
-          module: "Day 4: Math for AI",
-          topics: ["Statistics explained", "Probability basics", "Matrix math", "Why math matters for AI"],
-          practical: "Math practice with Python"
+          module: "Workshop Day: Variables and Input",
+          topics: ["User input", "Storing values", "Basic calculations", "Simple interactive programs"],
+          practical: "Build a small input-output program"
         },
         {
           day: 5,
-          module: "Day 5: How Neural Networks Work",
-          topics: ["Brain-like computers", "Neurons and connections", "Learning from mistakes", "Activation functions"],
-          practical: "Watch AI learn in real-time"
+          module: "Workshop Day: Logic and Conditions",
+          topics: ["If conditions", "Decision making", "Simple logic flow", "Debugging basics"],
+          practical: "Create a small decision-based program"
         },
         {
           day: 6,
-          module: "Day 6: Training Your First AI",
-          topics: ["Building networks", "Training process", "Testing accuracy", "Improving performance"],
-          practical: "Train AI to recognize patterns"
+          module: "Workshop Day: Mini AI Project Planning",
+          topics: ["Project idea selection", "Data needs", "Tools and workflow", "Team roles"],
+          practical: "Plan a mini AI project"
         },
         {
           day: 7,
-          module: "Day 7: Computer Vision Basics",
-          topics: ["How AI 'sees' images", "Finding objects", "Real-time processing", "Using cameras"],
-          practical: "Build a gesture detector"
+          module: "Workshop Day: Project Development",
+          topics: ["Build your solution", "Test your idea", "Improve the workflow", "Fix errors"],
+          practical: "Develop the first version of the project"
         },
         {
           day: 8,
-          module: "Day 8: Advanced Vision",
-          topics: ["Video processing", "Object tracking", "Image effects", "Live applications"],
-          practical: "Create cool visual effects"
+          module: "Workshop Day: Team Project Review",
+          topics: ["Presentation preparation", "Peer feedback", "Final improvements", "Project confidence"],
+          practical: "Refine the project and prepare the demo"
         },
         {
           day: 9,
-          module: "Day 9: Working with Real Data",
-          topics: ["Large datasets", "Combining data sources", "Data validation", "Quality assurance"],
-          practical: "Handle real-world messy data"
-        },
-        {
-          day: 10,
-          module: "Day 10: Building AI for Different Problems",
-          topics: ["Classification (sorting)", "Prediction (guessing)", "Clustering (grouping)", "Choosing the right AI"],
-          practical: "Solve different AI problems"
-        },
-        {
-          day: 11,
-          module: "Day 11: Making AI Available to Users",
-          topics: ["Deploying models", "Web applications", "APIs and interfaces", "Testing in real world"],
-          practical: "Deploy your AI online"
-        },
-        {
-          day: 12,
-          module: "Day 12: AI Ethics & Responsibility",
-          topics: ["Fair AI decisions", "Privacy concerns", "Bias detection", "Laws about AI"],
-          practical: "Audit your AI for bias"
-        },
-        {
-          day: 13,
-          module: "Day 13: Your AI Project Development",
-          topics: ["Project planning", "Implementation", "Testing and debugging", "Documentation"],
-          practical: "Build your final project"
-        },
-        {
-          day: 14,
-          module: "Day 14: Project Showcase & Next Steps",
-          topics: ["Presenting your work", "Explaining AI decisions", "Getting feedback", "AI career paths"],
-          practical: "Final Project Presentation & Awards"
+          module: "Workshop Day: Presentation & Showcase",
+          topics: ["Presenting your project", "Explaining the AI idea", "Career awareness", "Next steps"],
+          practical: "Present the final project to the class"
         }
       ],
       outcomes: [
-        "Master Python programming for AI",
-        "Work with large, real-world datasets",
-        "Build neural networks from scratch",
-        "Apply computer vision techniques",
-        "Deploy AI solutions",
-        "Understand AI ethics and safety",
-        "Complete professional AI project",
-        "Prepare for AI careers"
+        "Understand AI applications in the real world",
+        "Identify real-world problems for AI solutions",
+        "Write simple Python programs",
+        "Use variables and input-output in Python",
+        "Build a mini AI project with teamwork",
+        "Present ideas and solutions confidently",
+        "Develop awareness of future AI careers"
       ],
-      competencies: ["Python Programming", "Deep Learning", "Computer Vision", "Data Science", "Model Deployment", "Problem Solving", "Professional Development", "Innovation"]
+      competencies: ["Python Programming", "Real-World Problem Solving", "Project Planning", "Teamwork", "Presentation Skills", "AI Innovation", "Critical Thinking", "Career Awareness"]
     }
   };
 
@@ -2336,7 +2135,7 @@ function App() {
               >
                 {curriculumData[level].icon}
                 <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '16px' }}>{level === 6 ? 'Level 1 – Foundations' : level === 7 ? 'Level 2 – Explorer' : level === 8 ? 'Level 3 – Master' : 'Level 4 – Innovator'}</div>
+                  <div style={{ fontSize: '16px' }}>{level === 6 ? '🟢 Class 6 – Foundations' : level === 7 ? '🟡 Class 7 – Explorer' : level === 8 ? '🔵 Class 8 – Master' : '🔴 Class 9 – Innovator'}</div>
                   <div style={{ fontSize: '12px', fontWeight: '500', opacity: 0.8 }}>Class {level} • {curriculumData[level].duration}</div>
                 </div>
               </motion.button>
@@ -2344,23 +2143,51 @@ function App() {
           </motion.div>
 
           {/* Active Level Header */}
-          <motion.div
-            key={activeCurriculumLevel}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '32px', fontWeight: 800, color: 'var(--navy)', marginBottom: '8px' }}>
-                {data.title}
-              </h2>
-              <p style={{ color: 'var(--text-dim)', fontSize: '16px' }}>
-                {data.subtitle} • {data.duration}
-              </p>
-            </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCurriculumLevel}
+              initial={{ opacity: 0, rotateY: -95, x: 80, scale: 0.96 }}
+              animate={{ opacity: 1, rotateY: 0, x: 0, scale: 1 }}
+              exit={{ opacity: 0, rotateY: 95, x: -80, scale: 0.96 }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                position: 'relative',
+                padding: '24px',
+                borderRadius: '32px',
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,250,255,0.96))',
+                border: '1px solid rgba(148, 163, 184, 0.22)',
+                boxShadow: '0 24px 70px rgba(15, 23, 42, 0.14)',
+                overflow: 'hidden',
+                transformStyle: 'preserve-3d',
+                transformPerspective: '1600px',
+                transformOrigin: 'left center'
+              }}
+            >
+            <div style={{ position: 'absolute', left: '18px', top: '18px', bottom: '18px', width: '8px', borderRadius: '999px', background: 'linear-gradient(180deg, rgba(37, 99, 235, 0.95), rgba(6, 182, 212, 0.7))', opacity: 0.9 }} />
+            <div style={{ position: 'relative', zIndex: 1, paddingLeft: '24px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '999px', background: `${data.color}12`, border: `1px solid ${data.color}25` }}>
+                  <BookOpen size={16} color={data.color} />
+                  <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '1.4px', textTransform: 'uppercase', color: data.color }}>
+                    Book Page • {data.title}
+                  </span>
+                </div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-dim)', background: 'var(--bg-subtle)', padding: '8px 12px', borderRadius: '999px' }}>
+                  {data.days.length} sessions • {data.duration}
+                </div>
+              </div>
 
-            {/* Day-by-Day Accordion */}
-            <div className="curriculum-accordion" style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '900px', margin: '0 auto' }}>
+              <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+                <h2 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '32px', fontWeight: 800, color: 'var(--navy)', marginBottom: '8px' }}>
+                  {data.title}
+                </h2>
+                <p style={{ color: 'var(--text-dim)', fontSize: '16px' }}>
+                  {data.subtitle} • {data.duration}
+                </p>
+              </div>
+
+              {/* Day-by-Day Accordion */}
+              <div className="curriculum-accordion" style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '900px', margin: '0 auto' }}>
               {data.days.map((day) => {
                 const isOpen = openDays[`${activeCurriculumLevel}-${day.day}`];
                 return (
@@ -2538,8 +2365,10 @@ function App() {
                 ))}
               </div>
             </motion.section>
+            </div>
           </motion.div>
 
+          </AnimatePresence>
 
           {/* Back Button */}
           <div style={{ textAlign: 'center', marginTop: '60px' }}>

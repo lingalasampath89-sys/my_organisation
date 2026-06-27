@@ -1227,13 +1227,948 @@ input::placeholder, textarea::placeholder {
 }
 
 /* ============================================================
-   19. DESKTOP-ONLY / MOBILE-ONLY UTILITIES
+   19. GLOBAL MOBILE BASE — Touch & Overflow Safety
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* Prevent iOS zoom on input focus */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* Touch-friendly interactive targets */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Safe image sizing */
+img { max-width: 100%; height: auto; display: block; }
+
+/* ============================================================
+   20. DESKTOP-ONLY / MOBILE-ONLY UTILITIES
    ============================================================ */
 @media (max-width: 992px) {
   .desktop-only { display: none !important; }
 }
 @media (min-width: 993px) {
   .mobile-only { display: none !important; }
+}
+
+/* ============================================================
+   21. RESPONSIVE — TABLET LANDSCAPE (max 1199px)
+   ============================================================ */
+@media (max-width: 1199px) {
+  .container { max-width: 100%; padding: 0 32px; }
+
+  .stats-grid { gap: 20px; }
+
+  .footer-main {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+/* ============================================================
+   22. RESPONSIVE — TABLET (max 992px)
+   ============================================================ */
+@media (max-width: 992px) {
+  .container { padding: 0 24px; }
+  .section { padding: 80px 0; }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .stats-container { margin-top: -40px; }
+
+  .program-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .footer-main {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+
+  .section-header h2 { font-size: clamp(26px, 4vw, 40px); }
+  .section-header p { font-size: 16px; }
+
+  .recognitions-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  .newsletter-banner {
+    flex-direction: column;
+    gap: 28px;
+    padding: 48px 32px;
+    text-align: center;
+  }
+
+  .curriculum-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    text-align: center;
+  }
+
+  /* Certificate stacks on tablet */
+  .certificate-preview {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================================================
+   23. RESPONSIVE — MOBILE LARGE (max 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 72px;
+    --space-15: 80px;
+    --space-12: 60px;
+  }
+
+  .container { padding: 0 16px; }
+  .section { padding: 60px 0; }
+  .section-header { margin-bottom: 40px; }
+  .section-header h2 { font-size: clamp(24px, 6vw, 34px); }
+  .section-header p { font-size: 15px; }
+
+  /* ---- Navigation ---- */
+  nav { height: var(--nav-height); }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - var(--nav-height));
+    background: var(--glass-bg-dark);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    padding: 32px 24px;
+    box-shadow: var(--shadow-xl);
+    gap: 20px;
+    border-top: 1px solid var(--border);
+    z-index: 999;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .nav-links.open { display: flex; }
+  nav { position: sticky; }
+
+  /* ---- Hero ---- */
+  .hero-banner { min-height: 68vh; }
+
+  .hero-arrow { width: 44px; height: 44px; }
+  .hero-arrow--prev { left: 12px; }
+  .hero-arrow--next { right: 12px; }
+  .hero-arrow svg { width: 20px; height: 20px; }
+
+  .hero-dots { gap: 8px; }
+  .hero-dot { width: 10px; height: 10px; }
+  .hero-dot.active { width: 28px; }
+
+  .hero-slide-counter { font-size: 11px; padding: 6px 14px; }
+
+  /* ---- Stats ---- */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .stats-container { margin-top: 32px; }
+  .stat-card { padding: 24px 14px; }
+  .stat-card h2 { font-size: 28px; }
+
+  /* ---- Programs ---- */
+  .program-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .program-card { padding: 24px 20px; }
+
+  /* ---- Newsletter ---- */
+  .newsletter-banner {
+    padding: 36px 20px;
+    border-radius: 24px;
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+  .newsletter-banner h3 { font-size: 24px !important; }
+
+  /* ---- Footer ---- */
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .footer-col { display: flex; flex-direction: column; align-items: center; }
+  .social-links { justify-content: center; }
+  footer { padding: 60px 0 32px; }
+
+  /* ---- Syllabus Table ---- */
+  .syllabus-view { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 16px; }
+  .table-header, .table-row { min-width: 680px; }
+
+  /* ---- Grade selector ---- */
+  .grade-selector { flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+  .grade-btn { padding: 10px 20px; font-size: 14px; }
+
+  /* ---- Recognitions ---- */
+  .recognitions-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  /* ---- Curriculum ---- */
+  .curriculum-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .curriculum-accordion { padding: 0 4px; }
+  .curriculum-day-card > div:first-child { padding: 16px 20px !important; gap: 14px !important; }
+
+  /* ---- Page Hero ---- */
+  .page-hero { padding: 80px 0 !important; }
+  .page-hero h1 { font-size: clamp(28px, 7vw, 42px) !important; }
+
+  /* ---- About / Team grids ---- */
+  .team-card { padding: 28px 20px !important; }
+}
+
+/* ============================================================
+   24. RESPONSIVE — MOBILE (max 640px)
+   ============================================================ */
+@media (max-width: 640px) {
+  .container { padding: 0 14px; }
+  .section { padding: 48px 0; }
+
+  /* Hero */
+  .hero-banner { min-height: 60vh; }
+
+  /* Stats 2-col */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-card h2 { font-size: 26px; }
+  .stat-card p { font-size: 10px; }
+
+  /* Recognitions 2-col */
+  .recognitions-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  /* Curriculum tabs — scrollable */
+  .curriculum-level-btn {
+    padding: 12px 18px !important;
+    font-size: 13px !important;
+  }
+
+  /* Syllabus table min-width */
+  .table-header, .table-row { min-width: 620px; }
+
+  /* Section headings */
+  .section-header h2 { font-size: clamp(22px, 6vw, 30px); }
+
+  /* Page hero */
+  .page-hero { padding: 60px 0 !important; }
+  .page-hero h1 { font-size: clamp(26px, 7vw, 38px) !important; }
+
+  /* Newsletter */
+  .newsletter-banner { padding: 28px 16px; border-radius: 20px; }
+  .newsletter-banner h3 { font-size: 20px !important; }
+}
+
+/* ============================================================
+   25. RESPONSIVE — SMALL MOBILE (max 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .container { padding: 0 12px; }
+  .section { padding: 40px 0; }
+
+  /* Stats 1-col on very small */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-card { padding: 20px 12px; }
+  .stat-card h2 { font-size: 24px; }
+  .stat-icon { width: 44px; height: 44px; }
+
+  /* Hero adjustments */
+  .hero-banner { min-height: 55vh; }
+  .hero-arrow { width: 40px; height: 40px; }
+  .hero-arrow--prev { left: 8px; }
+  .hero-arrow--next { right: 8px; }
+  .hero-arrow svg { width: 18px; height: 18px; }
+  .hero-dots { gap: 6px; }
+  .hero-dot { width: 8px; height: 8px; }
+  .hero-dot.active { width: 24px; }
+
+  /* Cards */
+  .program-card { padding: 20px 16px; }
+  .card-icon-box { width: 52px; height: 52px; }
+
+  /* Recognition grid */
+  .recognitions-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* Curriculum tabs scroll */
+  .curriculum-level-btn {
+    padding: 10px 14px !important;
+    font-size: 12px !important;
+    gap: 6px !important;
+    min-height: 44px;
+  }
+
+  /* Footer */
+  footer { padding: 48px 0 28px; }
+  .newsletter-banner { padding: 24px 14px; }
+
+  /* Buttons */
+  .btn { min-height: 44px; }
+  .section-header h2 { font-size: clamp(20px, 5.5vw, 26px); }
+
+  /* Page hero */
+  .page-hero { padding: 48px 0 !important; }
+  .page-hero h1 { font-size: clamp(24px, 7vw, 34px) !important; }
+  .page-hero p { font-size: 14px !important; }
+}
+
+/* ============================================================
+   26. RESPONSIVE — MOBILE XS (max 375px) — Galaxy S, iPhone SE
+   ============================================================ */
+@media (max-width: 375px) {
+  .container { padding: 0 10px; }
+
+  .hero-banner { min-height: 52vh; }
+
+  .hero-arrow { width: 36px; height: 36px; }
+  .hero-arrow--prev { left: 6px; }
+  .hero-arrow--next { right: 6px; }
+  .hero-arrow svg { width: 16px; height: 16px; }
+
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-card { padding: 16px 10px; }
+  .stat-card h2 { font-size: 22px; }
+
+  .recognitions-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .section-header h2 { font-size: 20px; }
+  .section-header p { font-size: 13px; }
+
+  .btn { padding: 10px 18px; font-size: 13px; }
+  .newsletter-banner { padding: 20px 12px; }
+
+  .page-hero h1 { font-size: 22px !important; }
+  .page-hero { padding: 40px 0 !important; }
+
+  .curriculum-level-btn {
+    padding: 8px 10px !important;
+    font-size: 11px !important;
+  }
+
+  .footer-main { gap: 24px; }
+}
+
+/* ============================================================
+   27. MOBILE BUTTON OPTIMIZATIONS
+   ============================================================ */
+@media (max-width: 768px) {
+  .btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+
+  .btn-primary, .btn-lg {
+    padding: 13px 28px;
+    font-size: 14px;
+  }
+
+  .btn-sm {
+    padding: 9px 18px;
+    font-size: 13px;
+    min-height: 38px;
+  }
+
+  /* Hero content layout on mobile */
+  .hero-banner .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+/* ============================================================
+   28. iOS SAFE AREA INSETS (Notched iPhones)
+   ============================================================ */
+@supports (padding-top: env(safe-area-inset-top)) {
+  nav {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  footer {
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+
+  .hero-banner {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* ============================================================
+   29. TABLET PORTRAIT — Curriculum tabs horizontal scroll
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Curriculum level tabs scroll horizontally */
+  .curriculum-tabs-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+  }
+
+  .curriculum-tabs-wrapper::-webkit-scrollbar { display: none; }
+
+  /* Team cards single column */
+  .team-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Workshop gallery single col */
+  .workshop-gallery-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* About mission stack */
+  .about-mission-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Certificate section stack */
+  .cert-section-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Verification section stack */
+  .verify-section-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Contact form full width */
+  .contact-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Syllabus module cards */
+  .syllabus-modules-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  /* Member detail page */
+  .member-detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+}
+
+/* ============================================================
+   30. PARTNER LOGOS MARQUEE
+   ============================================================ */
+.partner-marquee-section {
+  padding: 32px 0;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+
+.partner-marquee-section::before,
+.partner-marquee-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.partner-marquee-section::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg-subtle) 0%, transparent 100%);
+}
+
+.partner-marquee-section::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg-subtle) 0%, transparent 100%);
+}
+
+.partner-marquee-label {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.partner-marquee-track {
+  display: flex;
+  gap: 60px;
+  animation: marquee-scroll 30s linear infinite;
+  width: max-content;
+}
+
+.partner-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.partner-logo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.partner-logo-item:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+  transform: translateY(-2px);
+}
+
+.partner-logo-item img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%) opacity(0.6);
+  transition: filter 0.4s ease;
+}
+
+.partner-logo-item:hover img {
+  filter: grayscale(0%) opacity(1);
+}
+
+.partner-logo-item .partner-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+  transition: color 0.3s ease;
+}
+
+.partner-logo-item:hover .partner-name {
+  color: var(--navy);
+}
+
+.partner-logo-item .partner-role {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   31. CURRICULUM PREVIEW MODAL
+   ============================================================ */
+.curriculum-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.curriculum-modal {
+  background: var(--bg-card);
+  border-radius: 28px;
+  border: 1px solid var(--border);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+  max-width: 720px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.curriculum-modal::-webkit-scrollbar {
+  width: 4px;
+}
+
+.curriculum-modal::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+.curriculum-modal-header {
+  padding: 36px 36px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.curriculum-modal-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.curriculum-modal-close:hover {
+  background: var(--danger);
+  color: white;
+  border-color: transparent;
+}
+
+.curriculum-modal-body {
+  padding: 28px 36px 36px;
+}
+
+.curriculum-modal-grade {
+  padding: 20px;
+  background: var(--bg-subtle);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.curriculum-modal-grade:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08);
+  transform: translateY(-2px);
+}
+
+.curriculum-modal-grade-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.curriculum-modal-grade-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.curriculum-modal-grade-modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.curriculum-modal-grade-modules span {
+  padding: 4px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.curriculum-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* ============================================================
+   32. WORKSHOP REQUEST FORM CARD
+   ============================================================ */
+.workshop-request-card {
+  background: linear-gradient(135deg, var(--navy) 0%, #1E3A5F 100%);
+  border-radius: 28px;
+  padding: 40px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.workshop-request-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.workshop-request-card h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.workshop-request-card p {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.workshop-request-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.workshop-request-form input {
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: white !important;
+  font-size: 15px !important;
+  backdrop-filter: blur(8px);
+}
+
+.workshop-request-form input::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.workshop-request-form input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.workshop-request-success {
+  text-align: center;
+  padding: 20px;
+}
+
+.workshop-request-success .success-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #10B981, #06B6D4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: white;
+}
+
+/* ============================================================
+   33. CERTIFICATE VERIFICATION ENHANCEMENTS
+   ============================================================ */
+.verify-input-wrapper {
+  position: relative;
+}
+
+.verify-input-wrapper input {
+  padding-right: 50px !important;
+}
+
+.verify-helper-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.verify-result {
+  margin-top: 20px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  animation: slideUp 0.3s ease;
+}
+
+.verify-result.success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34D399;
+}
+
+.verify-result.error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #F87171;
+}
+
+.verify-result.loading {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60A5FA;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.verify-btn-loading {
+  position: relative;
+}
+
+.verify-btn-loading::after {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 8px;
+}
+
+/* ============================================================
+   34. MOBILE OVERRIDES FOR NEW COMPONENTS
+   ============================================================ */
+@media (max-width: 768px) {
+  .partner-marquee-section::before,
+  .partner-marquee-section::after {
+    width: 40px;
+  }
+
+  .partner-marquee-track {
+    gap: 32px;
+  }
+
+  .partner-logo-item {
+    padding: 10px 18px;
+  }
+
+  .curriculum-modal {
+    margin: 12px;
+    max-height: 90vh;
+    border-radius: 20px;
+  }
+
+  .curriculum-modal-header {
+    padding: 24px 24px 0;
+  }
+
+  .curriculum-modal-body {
+    padding: 20px 24px 24px;
+  }
+
+  .curriculum-modal-actions {
+    flex-direction: column;
+  }
+
+  .workshop-request-card {
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .partner-logo-item {
+    padding: 8px 14px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+
+  .partner-logo-item img {
+    height: 24px;
+  }
+
+  .partner-logo-item .partner-name {
+    font-size: 11px;
+  }
+
+  .curriculum-modal-overlay {
+    padding: 12px;
+  }
+
+  .curriculum-modal {
+    border-radius: 16px;
+  }
+
+  .curriculum-modal-header {
+    padding: 20px 20px 0;
+  }
+
+  .curriculum-modal-body {
+    padding: 16px 20px 20px;
+  }
+}
+
+/* ============================================================
+   35. PRINT MEDIA (bonus — clean print output)
+   ============================================================ */
+@media print {
+  nav, footer, .hero-arrow, .hero-particles, .hero-progress { display: none !important; }
+  .hero-banner { min-height: auto; }
+  body { background: white; color: black; }
 }
 
 /* ============================================================

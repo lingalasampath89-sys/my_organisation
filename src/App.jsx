@@ -159,6 +159,19 @@ function App() {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
+  // Curriculum Modal State
+  const [showCurriculumModal, setShowCurriculumModal] = useState(false);
+
+  // Certificate Verification State
+  const [certId, setCertId] = useState('');
+  const [certVerifying, setCertVerifying] = useState(false);
+  const [certResult, setCertResult] = useState(null); // null | 'success' | 'error' | 'invalid'
+
+  // Workshop Request Form State
+  const [workshopForm, setWorkshopForm] = useState({ schoolName: '', city: '', contactNumber: '' });
+  const [workshopSubmitting, setWorkshopSubmitting] = useState(false);
+  const [workshopSubmitted, setWorkshopSubmitted] = useState(false);
+
   // API Base URL - Update this after hosting the backend
   const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -405,11 +418,34 @@ function App() {
               
               <div style={{ marginTop: '40px', padding: '32px', background: 'var(--navy)', borderRadius: '24px', color: 'white', textAlign: 'center' }}>
                 <h4 style={{ marginBottom: '12px' }}>Connect with {member.name.split(' ')[0]}</h4>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: member.profileLink ? '20px' : '0' }}>
                    <Linkedin style={{ cursor: 'pointer' }} />
                    <Twitter style={{ cursor: 'pointer' }} />
                    <Mail size={20} style={{ cursor: 'pointer' }} />
                 </div>
+                {member.profileLink && (
+                  <a
+                    href={member.profileLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '12px 28px',
+                      background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 100%)',
+                      color: 'white',
+                      borderRadius: '9999px',
+                      textDecoration: 'none',
+                      fontWeight: '700',
+                      fontSize: '14px',
+                      boxShadow: '0 4px 16px rgba(37,99,235,0.4)',
+                      fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    View Full Profile <ArrowRight size={16} />
+                  </a>
+                )}
               </div>
             </motion.div>
           </div>
@@ -585,7 +621,7 @@ function App() {
       image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1920&q=90",
       alt: "Students collaborating in AI classroom",
       tag: "🚀 AI Education Revolution",
-      heading: "Bringing Future",
+      heading: "Bringing the Future",
       headingAccent: "Into Your Hands",
       sub: "Artificial Intelligence Society India (AISI) is on a mission to democratize AI literacy for every K-12 student in India."
     },
@@ -1288,23 +1324,44 @@ function App() {
             </motion.div>
             
             <motion.div {...fadeIn} style={{ background: 'var(--glass-bg)', padding: '40px', borderRadius: '32px', border: '1px solid var(--glass-border)', backdropFilter: 'blur(10px)' }}>
-              <h3 style={{ marginBottom: '24px' }}>Verify Certificate</h3>
-              <div style={{ position: 'relative' }}>
-                <input 
-                  type="text" 
-                  placeholder="Enter Certificate ID (e.g. AISI-2026-XXXX)" 
-                  style={{ width: '100%', padding: '18px 24px', borderRadius: '16px', border: 'none', background: 'var(--glass-bg)', color: 'white', fontSize: '16px', marginBottom: '16px' }}
-                />
-                <motion.button 
-                  className="btn btn-primary btn-glow"
-                  style={{ width: '100%', padding: '16px', fontSize: '15px', fontWeight: 700, background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 100%)' }}
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Verify Credential
-                </motion.button>
+              <h3 style={{ marginBottom: '12px' }}>Verify Certificate</h3>
+              <p style={{ fontSize: '14px', opacity: 0.75, marginBottom: '28px', lineHeight: '1.6' }}>
+                Click below to open our secure certificate verification portal. Enter your Certificate ID to instantly verify authenticity.
+              </p>
+              <motion.a
+                href="https://certificate-verify.strinttechnologies.com/"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  width: '100%',
+                  padding: '18px',
+                  fontSize: '16px',
+                  fontWeight: 700,
+                  background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 100%)',
+                  color: 'white',
+                  borderRadius: '16px',
+                  textDecoration: 'none',
+                  boxShadow: '0 8px 32px rgba(37,99,235,0.4)',
+                  fontFamily: 'Inter, sans-serif',
+                  letterSpacing: '0.3px',
+                  transition: 'all 0.3s ease'
+                }}
+                whileHover={{ scale: 1.03, y: -2, boxShadow: '0 12px 40px rgba(37,99,235,0.55)' }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <ShieldCheck size={20} />
+                Open Verification Portal
+                <ArrowRight size={18} />
+              </motion.a>
+              <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', opacity: 0.6, fontSize: '12px' }}>
+                <ShieldCheck size={14} />
+                <span>Secured by Strint Technologies • certificate-verify.strinttechnologies.com</span>
               </div>
-              <p style={{ marginTop: '20px', fontSize: '13px', opacity: 0.6, textAlign: 'center' }}>
+              <p style={{ marginTop: '16px', fontSize: '13px', opacity: 0.55, textAlign: 'center' }}>
                 Lost your certificate? <a href="#" style={{ color: 'var(--primary)', textDecoration: 'none' }} onClick={() => navigateTo('contact')}>Contact Support</a>
               </p>
             </motion.div>
@@ -1370,9 +1427,9 @@ function App() {
       <div className="process-flow" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', marginBottom: '100px' }}>
         {[
           { title: "Class Session", icon: <BookOpen />, desc: "Expert-led conceptual sessions.", img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=400&q=80" },
-          { title: "Intensive Training", icon: <Brain />, desc: "Training To understand  algorithms.", img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80" },
-          { title: "Practical Lab", icon: <Monitor />, desc: "Hands-on experience how to use ai ", img: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=400&q=80" },
-          { title: "Skill Test", icon: <ClipboardCheck />, desc: "skill based assessment.", img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80" },
+          { title: "Intensive Training", icon: <Brain />, desc: "Training to understand algorithms.", img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80&fm=webp" },
+          { title: "Practical Lab", icon: <Monitor />, desc: "Hands-on AI implementation experience.", img: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=400&q=80&fm=webp" },
+          { title: "Skill Test", icon: <ClipboardCheck />, desc: "Skill-based assessment.", img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80&fm=webp" },
           { title: "Certification", icon: <Award />, desc: "Official AISI credentials.", img: "https://images.unsplash.com/photo-1590402494610-2c378a9114c6?auto=format&fit=crop&w=400&q=80" }
         ].map((step, i) => (
           <motion.div key={i} className="program-card" style={{ padding: '0', overflow: 'hidden' }} {...fadeIn} transition={{ delay: i * 0.1 }}>
@@ -2498,11 +2555,37 @@ function App() {
               <p style={{ fontSize: '14px', color: 'var(--text-dim)', lineHeight: '1.6', marginBottom: '24px', flex: 1 }}>{teamData[key].bio}</p>
               <button 
                 className="btn btn-outline" 
-                style={{ width: '100%', fontSize: '13px' }}
+                style={{ width: '100%', fontSize: '13px', marginBottom: teamData[key].profileLink ? '10px' : '0' }}
                 onClick={() => navigateTo('team-detail', key)}
               >
                 Know About {teamData[key].gender === 'female' ? 'Her' : 'Him'}
               </button>
+              {teamData[key].profileLink && (
+                <a
+                  href={teamData[key].profileLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px',
+                    width: '100%',
+                    padding: '11px 24px',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 100%)',
+                    color: 'white',
+                    borderRadius: '9999px',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 16px rgba(37,99,235,0.3)',
+                    fontFamily: 'Inter, sans-serif',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  View Profile <ArrowRight size={14} />
+                </a>
+              )}
             </motion.div>
           ))}
         </div>
@@ -3394,13 +3477,14 @@ const teamData = {
     highlights: ["10+ Years in Tech", "AI Evangelist", "Education Reformer"]
   },
   tarun: {
-    name: "Tarun",
-    role: "FOUNDER, STRINT TECHNOLOGIES | PARTNER, AISI",
+    name: "Velluri Tarun Shetty",
+    role: "CEO, STRINT TECHNOLOGIES | STRATEGIC PARTNER, AISI",
     gender: "male",
     img: tarunImg,
-    bio: "Leading the technology and infrastructure to make interactive AI learning accessible anywhere.",
-    fullBio: "Coming Soon: Detailed technical journey and partnership goals.",
-    highlights: ["Tech Visionary", "Infrastructure Expert", "Strategic Partner"]
+    profileLink: "https://tarunshetty.strinttechnologies.com",
+    bio: "Leading the technology and infrastructure to make interactive AI learning accessible anywhere. As CEO of Strint Technologies, Tarun drives strategic innovation and industry partnerships.",
+    fullBio: "Velluri Tarun Shetty is the CEO of Strint Technologies and a strategic partner of AISI, committed to empowering young minds with future-ready AI skills to innovate, create, and lead in the digital world.",
+    highlights: ["CEO, Strint Technologies", "Tech Visionary", "Strategic Partner"]
   },
   avinash: {
     name: "Avinash",

@@ -879,135 +879,197 @@ function App() {
       {/* ===== RECOGNITIONS LOGO STRIP ON LANDING PAGE ===== */}
       <section style={{
         padding: '80px 0',
-        background: 'linear-gradient(180deg, var(--bg-subtle) 0%, var(--bg-card) 100%)',
-        borderBottom: '1px solid var(--border)',
+        padding: '100px 0',
+        background: 'linear-gradient(135deg, #0a0f2e 0%, #0d1b4b 40%, #0f2460 70%, #0a0f2e 100%)',
         overflow: 'hidden',
         position: 'relative'
       }}>
-        {/* Decorative background elements */}
-        <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '4px', background: 'linear-gradient(90deg, var(--primary), #4f46e5, var(--primary))' }}></div>
-        
-        <div className="container">
-          <motion.div {...fadeIn} style={{ textAlign: 'center', marginBottom: '50px' }}>
-            <div style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center', 
-              gap: '12px', 
-              background: 'linear-gradient(135deg, rgba(0,101,255,0.08), rgba(79,70,229,0.08))', 
-              padding: '10px 24px', 
-              borderRadius: '50px',
-              border: '1px solid rgba(0,101,255,0.15)',
-              marginBottom: '16px'
-            }}>
-              <ShieldCheck size={18} color="var(--primary)" />
-              <span style={{ color: 'var(--primary)', fontWeight: '800', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '3px' }}>TRUSTED & RECOGNIZED BY</span>
-            </div>
-            <h2 style={{ fontSize: '32px', color: 'var(--navy)', margin: '12px 0 0', fontWeight: '800' }}>Our Government Recognitions</h2>
+        {/* Animated glowing orbs */}
+        <div style={{ position: 'absolute', top: '-80px', left: '-80px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-100px', right: '-60px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%,-50%)', width: '600px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+        {/* Top shimmer line */}
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, transparent 0%, #2563EB 30%, #06B6D4 60%, #4f46e5 80%, transparent 100%)' }} />
+
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          {/* Header */}
+          <motion.div {...fadeIn} style={{ textAlign: 'center', marginBottom: '64px' }}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                background: 'rgba(37,99,235,0.15)',
+                padding: '10px 26px',
+                borderRadius: '50px',
+                border: '1px solid rgba(37,99,235,0.4)',
+                backdropFilter: 'blur(10px)',
+                marginBottom: '20px'
+              }}
+            >
+              <ShieldCheck size={16} color="#60A5FA" />
+              <span style={{ color: '#60A5FA', fontWeight: '800', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '3px' }}>TRUSTED & RECOGNIZED BY</span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 'clamp(26px, 4vw, 44px)',
+                fontWeight: 900,
+                color: 'white',
+                margin: '0 0 12px',
+                letterSpacing: '-0.02em'
+              }}
+            >
+              Backed by India's{' '}
+              <span style={{ background: 'linear-gradient(135deg, #60A5FA 0%, #06B6D4 50%, #818CF8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                Top Authorities
+              </span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              style={{ color: 'rgba(255,255,255,0.6)', fontSize: '16px', maxWidth: '520px', margin: '0 auto', lineHeight: '1.7' }}
+            >
+              Our programs are nationally accredited by the most prestigious government bodies ensuring every certificate carries real weight.
+            </motion.p>
           </motion.div>
 
-          {/* Logo Cards Grid */}
+          {/* Logo Cards — Animated Marquee Row */}
+          <div style={{ position: 'relative', overflow: 'hidden' }}>
+            {/* Left fade */}
+            <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: '120px', background: 'linear-gradient(to right, #0a0f2e, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+            {/* Right fade */}
+            <div style={{ position: 'absolute', right: 0, top: 0, height: '100%', width: '120px', background: 'linear-gradient(to left, #0a0f2e, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+
+            <motion.div
+              style={{ display: 'flex', gap: '24px', width: 'max-content' }}
+              animate={{ x: ['0%', '-50%'] }}
+              transition={{ duration: 18, ease: 'linear', repeat: Infinity }}
+            >
+              {[...Object.keys(recognitionsData), ...Object.keys(recognitionsData)].map((key, i) => {
+                const realKey = Object.keys(recognitionsData)[i % Object.keys(recognitionsData).length];
+                const rec = recognitionsData[realKey];
+                return (
+                  <motion.div
+                    key={`${key}-${i}`}
+                    whileHover={{ scale: 1.08, y: -8 }}
+                    onClick={() => navigateTo('recognition-detail', realKey)}
+                    style={{
+                      cursor: 'pointer',
+                      flexShrink: 0,
+                      width: '200px',
+                      padding: '28px 20px',
+                      background: 'rgba(255,255,255,0.05)',
+                      backdropFilter: 'blur(20px)',
+                      borderRadius: '24px',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '16px',
+                      minHeight: '170px',
+                      transition: 'all 0.3s ease',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(6,182,212,0.05) 100%)', borderRadius: '24px', pointerEvents: 'none' }} />
+                    <div style={{
+                      width: '80px', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      background: 'white', borderRadius: '50%',
+                      boxShadow: '0 0 0 4px rgba(255,255,255,0.1), 0 8px 24px rgba(0,0,0,0.3)',
+                      position: 'relative', zIndex: 1
+                    }}>
+                      <img src={rec.logo} alt={rec.title} loading="lazy" style={{ height: '50px', maxWidth: '60px', objectFit: 'contain' }} />
+                    </div>
+                    <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+                      <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'rgba(255,255,255,0.95)', textTransform: 'uppercase', letterSpacing: '0.8px', lineHeight: '1.4' }}>
+                        {rec.title}
+                      </span>
+                      <span style={{ display: 'inline-block', marginTop: '8px', padding: '3px 10px', background: 'rgba(37,99,235,0.3)', borderRadius: '50px', fontSize: '9px', fontWeight: '700', color: '#93C5FD', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+                        {rec.badge.split(' ')[0]}
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </div>
+
+          </div>
+
+          {/* Stats strip */}
           <motion.div
-            {...fadeIn}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6 }}
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(5, 1fr)',
-              gap: '24px',
-              maxWidth: '1100px',
-              margin: '0 auto'
+              display: 'flex',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'rgba(255,255,255,0.04)',
+              backdropFilter: 'blur(10px)',
+              maxWidth: '900px',
+              margin: '60px auto 0'
             }}
-            className="recognitions-grid"
           >
-            {Object.keys(recognitionsData).map((key, i) => (
-              <motion.div
-                key={key}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12, duration: 0.5 }}
-                whileHover={{ scale: 1.08, y: -10, boxShadow: '0 20px 40px rgba(0,101,255,0.15)' }}
-                onClick={() => navigateTo('recognition-detail', key)}
+            {[
+              { value: '5', label: 'Govt. Recognitions', icon: '🏛️' },
+              { value: '25K+', label: 'Certified Students', icon: '🎓' },
+              { value: '100%', label: 'Verified Credentials', icon: '✅' },
+              { value: '30+', label: 'Industry Partners', icon: '🤝' }
+            ].map((stat, i) => (
+              <div
+                key={i}
                 style={{
-                  cursor: 'pointer',
-                  padding: '28px 20px',
-                  background: 'var(--bg-card)',
-                  borderRadius: '24px',
-                  border: '2px solid var(--border)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '16px',
-                  minHeight: '160px',
-                  transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-                  position: 'relative',
-                  overflow: 'hidden'
+                  flex: '1 1 180px',
+                  padding: '28px 24px',
+                  textAlign: 'center',
+                  borderRight: i < 3 ? '1px solid rgba(255,255,255,0.08)' : 'none'
                 }}
               >
-                {/* Subtle gradient overlay on hover */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(180deg, transparent 60%, rgba(0,101,255,0.03) 100%)',
-                  borderRadius: '22px',
-                  pointerEvents: 'none'
-                }}></div>
-
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'white',
-                  borderRadius: '50%',
-                  border: '2px solid #f0f4ff',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-                  position: 'relative',
-                  zIndex: 1
-                }}>
-                  <img
-                    src={recognitionsData[key].logo}
-                    alt={recognitionsData[key].title}
-                    loading="lazy"
-                    style={{
-                      height: '50px',
-                      maxWidth: '60px',
-                      objectFit: 'contain',
-                      filter: theme === 'dark' ? 'brightness(1.3) contrast(1.1)' : 'none',
-                      transition: 'filter 0.3s ease'
-                    }}
-                  />
-                </div>
-                <span style={{
-                  fontSize: '12px',
-                  fontWeight: '800',
-                  color: 'var(--navy)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px',
-                  textAlign: 'center',
-                  lineHeight: '1.3',
-                  position: 'relative',
-                  zIndex: 1
-                }}>
-                  {recognitionsData[key].title}
-                </span>
-              </motion.div>
+                <div style={{ fontSize: '24px', marginBottom: '6px' }}>{stat.icon}</div>
+                <div style={{ fontSize: '28px', fontWeight: '900', color: 'white', fontFamily: 'Poppins, sans-serif', lineHeight: 1 }}>{stat.value}</div>
+                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '6px', fontWeight: '600', letterSpacing: '0.5px', textTransform: 'uppercase' }}>{stat.label}</div>
+              </div>
             ))}
           </motion.div>
 
-          <motion.div {...fadeIn} style={{ textAlign: 'center', marginTop: '40px' }}>
-            <motion.button 
-              className="btn btn-primary btn-glow" 
-              style={{ padding: '14px 40px', fontSize: '15px', fontWeight: 700, background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 100%)' }} 
+          {/* CTA */}
+          <motion.div {...fadeIn} style={{ textAlign: 'center', marginTop: '48px' }}>
+            <motion.button
+              className="btn btn-primary btn-glow"
+              style={{ padding: '14px 44px', fontSize: '15px', fontWeight: 700, background: 'linear-gradient(135deg, #2563EB 0%, #3B72F7 50%, #06B6D4 100%)', border: 'none', boxShadow: '0 8px 32px rgba(37,99,235,0.4)' }}
               onClick={() => navigateTo('recognitions')}
-              whileHover={{ scale: 1.06, y: -3 }}
+              whileHover={{ scale: 1.06, y: -4, boxShadow: '0 12px 40px rgba(37,99,235,0.55)' }}
               whileTap={{ scale: 0.96 }}
             >
               View All Recognitions <ArrowRight size={18} style={{ marginLeft: '10px' }} />
             </motion.button>
           </motion.div>
         </div>
+
+        {/* Bottom shimmer line */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, transparent 0%, #4f46e5 30%, #2563EB 60%, #06B6D4 80%, transparent 100%)' }} />
       </section>
 
       <section className="container section">

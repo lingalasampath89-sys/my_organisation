@@ -69,6 +69,11 @@ import avinashImg from './assets/avinash.png';
 import chandanaImg from './assets/chandana.png';
 // NOTE: Make sure to save the uploaded image as 'sampath.png' in src/assets
 import sampathImg from './assets/sampath.png';
+// Book Cover Images
+import bookCover1 from './assets/book_cover_1.png';
+import bookCover2 from './assets/book_cover_2.png';
+import bookCover3 from './assets/book_cover_3.png';
+import bookCover4 from './assets/book_cover_4.png';
 const ws1 = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80";
 const ws2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80";
 const ws3 = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80";
@@ -171,6 +176,10 @@ function App() {
   const [workshopForm, setWorkshopForm] = useState({ schoolName: '', city: '', contactNumber: '' });
   const [workshopSubmitting, setWorkshopSubmitting] = useState(false);
   const [workshopSubmitted, setWorkshopSubmitted] = useState(false);
+
+  // Book Reader State
+  const [bookPageIndex, setBookPageIndex] = useState(0);
+  const [pageTurning, setPageTurning] = useState(null); // 'forward' | 'backward' | null
 
   // API Base URL - Update this after hosting the backend
   const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -1436,260 +1445,302 @@ function App() {
         ))}
       </div>
 
-      {/* Grade Quick Selection Grid */}
-      <div className="grade-selector-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-         {[6, 7, 8, 9].map(grade => (
-            <motion.div 
-               key={grade}
-               whileHover={{ y: -10 }}
-               className="grade-card"
-               style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)', textAlign: 'center', cursor: 'pointer', boxShadow: 'var(--shadow)' }}
-               onClick={() => navigateTo('syllabus', grade)}
+      {/* 3D Bookshelf Display */}
+      <div className="bookshelf-section">
+        <motion.div className="bookshelf-header" {...fadeIn}>
+          <span className="eyebrow">📚 OUR CURRICULUM BOOKS</span>
+          <h2>Pick Your Level, Open Your Book</h2>
+          <p>Each book is a complete AI learning journey. Click to open and explore the full syllabus inside.</p>
+        </motion.div>
+
+        <div className="bookshelf">
+          {[
+            { grade: 6, title: 'AI Foundations', classLabel: 'Class 6', level: 'Beginner', cover: bookCover1, spineColor: '#047857', spineColorLight: '#059669' },
+            { grade: 7, title: 'AI Explorer', classLabel: 'Class 7', level: 'Intermediate', cover: bookCover2, spineColor: '#1D4ED8', spineColorLight: '#2563EB' },
+            { grade: 8, title: 'AI Master', classLabel: 'Class 8', level: 'Advanced', cover: bookCover3, spineColor: '#6D28D9', spineColorLight: '#7C3AED' },
+            { grade: 9, title: 'AI Innovator', classLabel: 'Class 9', level: 'Expert', cover: bookCover4, spineColor: '#B91C1C', spineColorLight: '#DC2626' }
+          ].map((book, i) => (
+            <motion.div
+              key={book.grade}
+              className="book-3d-wrapper"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              onClick={() => { setBookPageIndex(0); setPageTurning(null); navigateTo('syllabus', book.grade); }}
             >
-               <div style={{ width: '60px', height: '60px', background: 'var(--bg-subtle)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', color: 'var(--primary)' }}>
-                  <BookOpen size={28} />
-               </div>
-               <h3 style={{ fontSize: '24px', color: 'var(--navy)', marginBottom: '16px' }}>Class {grade}</h3>
-               <p style={{ color: 'var(--text-dim)', marginBottom: '24px', fontSize: '14px', lineHeight: '1.6' }}>Explore the detailed AI/ML sessions, theory modules, and practical lab roadmap for Grade {grade}.</p>
-               <span style={{ color: 'var(--primary)', fontWeight: '800', fontSize: '14px' }}>View Full Syllabus →</span>
+              <div className="book-3d">
+                {/* Front Cover — Real Book Image */}
+                <div className="book-cover-front book-cover-image">
+                  <img src={book.cover} alt={book.title} className="book-cover-img" draggable="false" />
+                </div>
+                {/* Spine */}
+                <div className="book-spine" style={{ background: `linear-gradient(180deg, ${book.spineColor} 0%, ${book.spineColorLight} 50%, ${book.spineColor} 100%)` }}>
+                  <span className="book-spine-text">{book.title}</span>
+                </div>
+                {/* Back */}
+                <div className="book-back" style={{ background: book.spineColor }}></div>
+                {/* Page edges */}
+                <div className="book-pages-edge"></div>
+                {/* Top page edge */}
+                <div className="book-pages-top"></div>
+              </div>
+              <div className="book-label">
+                <span>📖 Open {book.title}</span>
+              </div>
             </motion.div>
-         ))}
+          ))}
+          <div className="shelf-wood"></div>
+        </div>
       </div>
     </div>
   );
 
   const renderSyllabusPage = (grade) => {
-    const gradeImages = {
-      6: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
-      7: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80",
-      8: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80",
-      9: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80"
-    };
-
     const gradeColors = {
-      6: { primary: 'rgba(5, 150, 105, 0.75)', secondary: '#059669', accent: '#34D399' },
-      7: { primary: 'rgba(30, 58, 138, 0.7)', secondary: '#2563EB', accent: '#60A5FA' },
-      8: { primary: 'rgba(79, 39, 245, 0.7)', secondary: '#7C3AED', accent: '#A78BFA' },
-      9: { primary: 'rgba(185, 28, 28, 0.7)', secondary: '#DC2626', accent: '#F87171' }
+      6: { secondary: '#059669', accent: '#34D399', name: 'AI Foundations' },
+      7: { secondary: '#2563EB', accent: '#60A5FA', name: 'AI Explorer' },
+      8: { secondary: '#7C3AED', accent: '#A78BFA', name: 'AI Master' },
+      9: { secondary: '#DC2626', accent: '#F87171', name: 'AI Innovator' }
     };
 
-    const moduleIcons = {
-      "Machine Learning Core": <Brain size={24} />,
-      "Regression & Trends": <TrendingUp size={24} />,
-      "Computer Vision Lab": <Eye size={24} />,
-      "NLP & Sentiment": <MessageSquare size={24} />,
-      "Intro to Neural Nets": <Zap size={24} />,
-      "Decision Trees": <GitBranch size={24} />,
-      "AI Mindset & Basics": <Lightbulb size={24} />,
-      "Logic & Algorithms": <Code size={24} />,
-      "Data Literacy": <BarChart3 size={24} />,
-      "Computer Vision Intro": <Eye size={24} />,
-      "NLP Foundations": <Volume2 size={24} />,
-      "Ethics & Safety": <Shield size={24} />,
-      "Advanced Python for AI": <Code size={24} />,
-      "Data Engineering (Pandas)": <Database size={24} />,
-      "Applied Math & Stats": <Calculator size={24} />,
-      "Neural Networks Deep-Dive": <Cpu size={24} />,
-      "OpenCV & Vision Systems": <Camera size={24} />,
-      "Capstone AI Project": <Rocket size={24} />
+    const modules = syllabusData[grade]?.modules || [];
+    // Build page spreads: each spread has a left page and a right page
+    // Page 0: Cover page (left) + Table of Contents (right)
+    // Pages 1+: Module theory (left) + Module practical/test (right)
+    const totalPages = 1 + modules.length; // 1 cover spread + N module spreads
+    const safePageIndex = Math.min(bookPageIndex, totalPages - 1);
+    const colors = gradeColors[grade];
+
+    const handlePageTurn = (direction) => {
+      // Strictly block if already turning — no rapid clicking allowed
+      if (pageTurning) return;
+      if (direction === 'forward' && safePageIndex >= totalPages - 1) return;
+      if (direction === 'backward' && safePageIndex <= 0) return;
+      
+      setPageTurning(direction);
+      // Wait for the full page turn animation to complete before changing content
+      setTimeout(() => {
+        setBookPageIndex(prev => direction === 'forward' ? prev + 1 : prev - 1);
+        // Add extra delay after content change before allowing next turn
+        setTimeout(() => {
+          setPageTurning(null);
+        }, 300);
+      }, 800);
     };
 
-    const [expandedModule, setExpandedModule] = useState(null);
+    // Render left page content based on pageIndex
+    const renderLeftPage = (pageIdx) => {
+      if (pageIdx === 0) {
+        // Cover / intro page
+        return (
+          <div className="page-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', textAlign: 'center' }}>
+            <div style={{ width: 72, height: 72, borderRadius: '50%', background: `linear-gradient(135deg, ${colors.secondary}, ${colors.accent})`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, boxShadow: `0 8px 24px ${colors.secondary}44` }}>
+              <BookOpen size={32} color="white" />
+            </div>
+            <span className="page-unit-label" style={{ color: colors.secondary }}>AISI Curriculum</span>
+            <h2 className="page-unit-title" style={{ fontSize: 28, marginBottom: 12 }}>{syllabusData[grade].title}</h2>
+            <p style={{ fontSize: 14, color: '#666', lineHeight: 1.7, maxWidth: 280 }}>{syllabusData[grade].level}</p>
+            <div style={{ marginTop: 24, padding: '8px 20px', background: `${colors.secondary}11`, borderRadius: 20, border: `1px solid ${colors.secondary}33` }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: colors.secondary }}>{modules.length} Units · ~120 Hours</span>
+            </div>
+          </div>
+        );
+      }
+      // Module theory page
+      const m = modules[pageIdx - 1];
+      if (!m) return null;
+      return (
+        <div className="page-content">
+          <span className="page-unit-label" style={{ color: colors.secondary }}>Unit {m.unit}</span>
+          <h3 className="page-unit-title">{m.title}</h3>
+          <div className="page-section-title" style={{ color: colors.secondary }}>📖 Theory</div>
+          <div className="page-section-body">{m.theory}</div>
+        </div>
+      );
+    };
+
+    // Render right page content based on pageIndex
+    const renderRightPage = (pageIdx) => {
+      if (pageIdx === 0) {
+        // Table of contents
+        return (
+          <div className="page-content">
+            <span className="page-unit-label" style={{ color: colors.secondary }}>Contents</span>
+            <h3 className="page-unit-title" style={{ fontSize: 20 }}>Table of Contents</h3>
+            {modules.map((m, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px dashed rgba(0,0,0,0.08)', cursor: 'pointer' }}
+                onClick={(e) => { e.stopPropagation(); setBookPageIndex(i + 1); }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <span style={{ width: 28, height: 28, borderRadius: 8, background: `${colors.secondary}15`, color: colors.secondary, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800 }}>{m.unit}</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: '#1a1a2e' }}>{m.title}</span>
+                </div>
+                <span style={{ fontSize: 12, color: '#999', fontStyle: 'italic' }}>p.{i + 2}</span>
+              </div>
+            ))}
+          </div>
+        );
+      }
+      // Module practical + test page
+      const m = modules[pageIdx - 1];
+      if (!m) return null;
+      return (
+        <div className="page-content">
+          <div className="page-section-title" style={{ color: colors.secondary }}>🔬 Practical Lab</div>
+          <div className="page-section-body">{m.practical}</div>
+          <div style={{ marginTop: 12, padding: 16, background: `${colors.secondary}08`, borderRadius: 12, border: `1px solid ${colors.secondary}18` }}>
+            <div className="page-section-title" style={{ color: colors.secondary, marginBottom: 6 }}>✅ Assessment</div>
+            <p style={{ fontSize: 13, color: '#3a3a4a', margin: 0, fontWeight: 600 }}>{m.test}</p>
+          </div>
+        </div>
+      );
+    };
 
     return (
-      <div className="syllabus-page">
-        <section className="page-hero" style={{ 
-          background: `linear-gradient(135deg, ${gradeColors[grade].primary} 0%, ${gradeColors[grade].secondary}66 100%), url(${gradeImages[grade]})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          color: 'white', 
-          padding: '140px 0', 
-          textAlign: 'center', 
-          position: 'relative'
-        }}>
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `radial-gradient(circle at 20% 50%, ${gradeColors[grade].accent}22 0%, transparent 50%)`,
-            pointerEvents: 'none'
-          }}></div>
-          <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-            <motion.div {...fadeIn}>
-              <span style={{ textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13px', fontWeight: '800', opacity: 0.85 }}>📚 Grade {grade} Curriculum</span>
-              <h1 style={{ fontSize: 'clamp(36px, 5vw, 56px)', margin: '20px 0', fontWeight: '900', textShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>{syllabusData[grade].title}</h1>
-              <p style={{ fontSize: '18px', opacity: 0.88, marginBottom: '24px' }}>{syllabusData[grade].level}</p>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '16px', background: 'rgba(255,255,255,0.12)', padding: '12px 24px', borderRadius: '50px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)' }}>
-                <span style={{ fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>📊 {syllabusData[grade].modules.length} Units</span>
-                <span style={{ fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>⏱️ ~120 Hours</span>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        <div className="container section">
-          <div style={{ marginBottom: '50px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
-            <motion.button 
-              className="btn btn-outline" 
-              onClick={() => navigateTo('programs')} 
-              whileHover={{ scale: 1.05 }}
-              style={{ padding: '10px 24px', fontSize: '14px', fontWeight: '700' }}
-            >
-              ← Back to Programs
-            </motion.button>
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              {[6, 7, 8, 9].map(g => (
-                <motion.button 
-                  key={g} 
-                  onClick={() => navigateTo('syllabus', g)}
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{ 
-                    padding: '11px 22px', 
-                    borderRadius: '12px', 
-                    border: '2px solid ' + (grade === g ? gradeColors[g].secondary : 'var(--border)'),
-                    background: grade === g ? `linear-gradient(135deg, ${gradeColors[g].secondary} 0%, ${gradeColors[g].accent} 100%)` : 'var(--bg-card)',
-                    color: grade === g ? 'white' : 'var(--navy)',
-                    cursor: 'pointer',
-                    fontWeight: '700',
-                    fontSize: '14px',
-                    transition: 'all 0.3s',
-                    boxShadow: grade === g ? `0 8px 24px ${gradeColors[g].secondary}44` : 'none'
-                  }}
-                >
-                  Class {g}
-                </motion.button>
-              ))}
-            </div>
-          </div>
-
-          <motion.div
-            key={grade}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+      <div className="book-reader-page">
+        <div className="container">
+          {/* Back button */}
+          <motion.button
+            className="book-back-btn"
+            onClick={() => navigateTo('programs')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '40px' }}>
-              {syllabusData[grade].modules.map((m, i) => (
-                <motion.div
-                  key={i}
-                  layout
-                  onClick={() => setExpandedModule(expandedModule === i ? null : i)}
-                  whileHover={{ y: -8, boxShadow: `0 20px 40px ${gradeColors[grade].secondary}22` }}
-                  style={{
-                    background: 'var(--bg-card)',
-                    border: `2px solid ${expandedModule === i ? gradeColors[grade].secondary : 'var(--border)'}`,
-                    borderRadius: '20px',
-                    padding: '28px',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s',
-                    position: 'relative',
-                    overflow: 'hidden'
-                  }}
-                >
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: '4px',
-                    background: `linear-gradient(90deg, ${gradeColors[grade].secondary}, ${gradeColors[grade].accent})`,
-                    opacity: expandedModule === i ? 1 : 0.5
-                  }}></div>
+            <ArrowLeft size={18} /> Back to Bookshelf
+          </motion.button>
 
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '12px' }}>
-                    <div style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '12px',
-                      background: `linear-gradient(135deg, ${gradeColors[grade].secondary}22, ${gradeColors[grade].accent}22)`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: gradeColors[grade].secondary,
-                      flexShrink: 0
-                    }}>
-                      {moduleIcons[m.title] || <Code size={24} />}
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: '12px', fontWeight: '800', color: gradeColors[grade].secondary, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Unit {m.unit}</div>
-                      <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--navy)', margin: 0 }}>{m.title}</h3>
-                    </div>
-                  </div>
-
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: expandedModule === i ? 'auto' : 0, opacity: expandedModule === i ? 1 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ overflow: 'hidden', marginTop: '16px', paddingTop: '16px', borderTop: `1px solid var(--border)` }}
-                  >
-                    <div style={{ marginBottom: '12px' }}>
-                      <p style={{ fontSize: '13px', fontWeight: '700', color: gradeColors[grade].secondary, marginBottom: '8px' }}>📖 Theory</p>
-                      <p style={{ fontSize: '13px', lineHeight: '1.6', color: 'var(--text-dim)', whiteSpace: 'pre-line', margin: 0 }}>{m.theory}</p>
-                    </div>
-                    <div style={{ marginBottom: '12px' }}>
-                      <p style={{ fontSize: '13px', fontWeight: '700', color: gradeColors[grade].secondary, marginBottom: '8px' }}>🔬 Practical</p>
-                      <p style={{ fontSize: '13px', lineHeight: '1.6', color: 'var(--text-dim)', whiteSpace: 'pre-line', margin: 0 }}>{m.practical}</p>
-                    </div>
-                    <div>
-                      <p style={{ fontSize: '13px', fontWeight: '700', color: gradeColors[grade].secondary, marginBottom: '8px' }}>✅ Test</p>
-                      <p style={{ fontSize: '13px', lineHeight: '1.6', color: 'var(--text-dim)', margin: 0 }}>{m.test}</p>
-                    </div>
-                  </motion.div>
-
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '12px', fontStyle: 'italic' }}>
-                    {expandedModule === i ? '▼ Click to collapse' : '▶ Click for details'}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Old table view as fallback */}
-            <div style={{ marginTop: '60px' }}>
-              <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '24px', textAlign: 'center', color: 'var(--navy)' }}>Full Curriculum Table</h3>
-              <div className="syllabus-view">
-                <div className="syllabus-table">
-                  <div className="table-header">
-                    <div className="col-unit">Unit</div>
-                    <div className="col-title">Module Title</div>
-                    <div className="col-theory">Theory Sessions</div>
-                    <div className="col-practical">Practical Labs</div>
-                    <div className="col-test">Test Pattern</div>
-                  </div>
-                  {syllabusData[grade].modules.map((m, i) => (
-                    <div key={i} className="table-row">
-                      <div className="col-unit"><span>{m.unit}</span></div>
-                      <div className="col-title"><strong>{m.title}</strong></div>
-                      <div className="col-theory">{m.theory}</div>
-                      <div className="col-practical">{m.practical}</div>
-                      <div className="col-test" style={{ fontSize: '13px', fontWeight: '700', color: 'var(--primary)' }}>{m.test}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+          {/* Header */}
+          <motion.div className="book-reader-header" {...fadeIn}>
+            <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: 3, textTransform: 'uppercase', color: colors.secondary }}>📖 {colors.name}</span>
+            <h1>{syllabusData[grade].title}</h1>
+            <p>{syllabusData[grade].level}</p>
           </motion.div>
 
-          <div style={{ textAlign: 'center', marginTop: '60px' }}>
-            <motion.button 
+          {/* Grade tabs */}
+          <div className="book-grade-tabs">
+            {[6, 7, 8, 9].map(g => (
+              <motion.button
+                key={g}
+                className={`book-grade-tab ${grade === g ? 'active' : ''}`}
+                style={grade === g ? { background: `linear-gradient(135deg, ${gradeColors[g].secondary}, ${gradeColors[g].accent})`, boxShadow: `0 8px 24px ${gradeColors[g].secondary}44` } : {}}
+                onClick={() => { setBookPageIndex(0); setPageTurning(null); navigateTo('syllabus', g); }}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Class {g}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* The Open Book */}
+          <div className="open-book-container">
+            {/* Left arrow */}
+            <motion.button
+              className="book-nav-arrow"
+              onClick={() => handlePageTurn('backward')}
+              disabled={safePageIndex === 0 || pageTurning}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft size={24} />
+            </motion.button>
+
+            <motion.div
+              className="open-book"
+              key={grade}
+              initial={{ opacity: 0, scale: 0.92, rotateX: 8 }}
+              animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Left Page */}
+              <div className="book-page-left">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`left-${safePageIndex}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3, delay: pageTurning ? 0.4 : 0 }}
+                    style={{ height: '100%' }}
+                  >
+                    {renderLeftPage(safePageIndex)}
+                  </motion.div>
+                </AnimatePresence>
+                <span className="page-number page-number-left">{safePageIndex * 2 + 1}</span>
+              </div>
+
+              {/* Center spine */}
+              <div className="book-spine-center"></div>
+
+              {/* Right Page */}
+              <div className="book-page-right">
+                <div className="page-corner"></div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`right-${safePageIndex}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3, delay: pageTurning ? 0.4 : 0 }}
+                  >
+                    {renderRightPage(safePageIndex)}
+                  </motion.div>
+                </AnimatePresence>
+                <span className="page-number page-number-right">{safePageIndex * 2 + 2}</span>
+              </div>
+
+              {/* Page turn animation overlay */}
+              {pageTurning && (
+                <div className={`page-turn-area ${pageTurning === 'forward' ? 'turning-forward' : 'turning-backward'}`}>
+                  <div className="page-turn-front">
+                    <div className="page-content" style={{ opacity: 0.3 }}>
+                      {pageTurning === 'forward' ? renderRightPage(safePageIndex) : renderRightPage(safePageIndex - 1)}
+                    </div>
+                  </div>
+                  <div className="page-turn-back">
+                    <div className="page-content" style={{ opacity: 0.3 }}>
+                      {pageTurning === 'forward' ? renderLeftPage(safePageIndex + 1) : renderLeftPage(safePageIndex)}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+
+            {/* Right arrow */}
+            <motion.button
+              className="book-nav-arrow"
+              onClick={() => handlePageTurn('forward')}
+              disabled={safePageIndex >= totalPages - 1 || pageTurning}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight size={24} />
+            </motion.button>
+          </div>
+
+          {/* Page dots */}
+          <div className="page-dots">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                className={`page-dot ${safePageIndex === i ? 'active' : ''}`}
+                onClick={() => { if (!pageTurning) setBookPageIndex(i); }}
+                style={safePageIndex === i ? { background: colors.secondary } : {}}
+              />
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div style={{ textAlign: 'center', marginTop: 48 }}>
+            <motion.button
               className="btn btn-primary btn-glow"
               onClick={() => navigateTo('contact')}
               whileHover={{ scale: 1.06, y: -3 }}
               whileTap={{ scale: 0.96 }}
-              style={{ padding: '14px 40px', fontSize: '16px', fontWeight: '700' }}
+              style={{ padding: '14px 40px', fontSize: '16px', fontWeight: '700', background: `linear-gradient(135deg, ${colors.secondary}, ${colors.accent})` }}
             >
               Enroll Now <ArrowRight size={20} style={{ marginLeft: '8px' }} />
-            </motion.button>
-            <motion.button 
-              className="btn btn-outline" 
-              onClick={() => navigateTo('home')}
-              whileHover={{ scale: 1.06, y: -3 }}
-              whileTap={{ scale: 0.96 }}
-              style={{ padding: '14px 32px', fontSize: '16px', fontWeight: '700', marginLeft: '16px' }}
-            >
-              <ArrowLeft size={20} style={{ marginRight: '8px' }} /> Back to Home
             </motion.button>
           </div>
         </div>
@@ -1940,6 +1991,11 @@ function App() {
 
   const [openDays, setOpenDays] = useState({});
   const [activeCurriculumLevel, setActiveCurriculumLevel] = useState(6);
+  const [activeBookPage, setActiveBookPage] = useState(0);
+
+  useEffect(() => {
+    setActiveBookPage(0);
+  }, [activeCurriculumLevel]);
 
   const toggleDay = (level, day) => {
     const key = `${level}-${day}`;
@@ -1948,7 +2004,26 @@ function App() {
 
   const renderCurriculumPage = () => {
     const data = curriculumData[activeCurriculumLevel];
-    
+    const bookPages = [
+      {
+        title: 'Class Overview',
+        subtitle: 'Opening page',
+        accent: 'Overview'
+      },
+      {
+        title: 'Learning Journey',
+        subtitle: 'Units and workshops',
+        accent: 'Units'
+      },
+      {
+        title: 'Skills & Outcomes',
+        subtitle: 'What learners gain',
+        accent: 'Outcomes'
+      }
+    ];
+    const currentPage = bookPages[activeBookPage] || bookPages[0];
+    const totalPages = bookPages.length;
+
     return (
       <div className="curriculum-page">
         {/* Hero - Revamped */}
@@ -2105,277 +2180,413 @@ function App() {
         </section>
 
         <div className="container section" style={{ paddingTop: '60px' }}>
-          {/* Level Switcher Tabs */}
-          <motion.div {...fadeIn} style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginBottom: '60px', flexWrap: 'wrap' }}>
-            {[6, 7, 8, 9].map(level => (
-              <motion.button
-                key={level}
-                whileHover={{ scale: 1.03, y: -2 }}
+
+          {/* Section header */}
+          <motion.div {...fadeIn} style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <span style={{ color: 'var(--primary)', fontWeight: 800, fontSize: '13px', letterSpacing: '2.5px', textTransform: 'uppercase' }}>📚 SELECT YOUR LEVEL</span>
+            <h2 style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(24px, 4vw, 38px)', fontWeight: 900, color: 'var(--navy)', margin: '14px 0 12px', letterSpacing: '-0.02em' }}>Pick Your Book &amp; Explore</h2>
+            <p style={{ color: 'var(--text-dim)', fontSize: '16px', maxWidth: '560px', margin: '0 auto', lineHeight: '1.7' }}>Each book is a complete AI learning journey. Choose your class to open the curriculum.</p>
+          </motion.div>
+
+          {/* Book Cover Selector — visual bookshelf style */}
+          <motion.div
+            {...fadeIn}
+            transition={{ delay: 0.1 }}
+            style={{ display: 'flex', justifyContent: 'center', gap: '28px', marginBottom: '60px', flexWrap: 'wrap', perspective: '1200px' }}
+          >
+            {[
+              { level: 6, cover: bookCover1, spine: '#047857', spineLight: '#059669', badge: '🟢 Beginner', title: 'AI Foundations', sub: 'Class 6' },
+              { level: 7, cover: bookCover2, spine: '#1D4ED8', spineLight: '#2563EB', badge: '🟡 Intermediate', title: 'AI Explorer', sub: 'Class 7' },
+              { level: 8, cover: bookCover3, spine: '#6D28D9', spineLight: '#7C3AED', badge: '🔵 Advanced', title: 'AI Master', sub: 'Class 8' },
+              { level: 9, cover: bookCover4, spine: '#B91C1C', spineLight: '#DC2626', badge: '🔴 Expert', title: 'AI Innovator', sub: 'Class 9' }
+            ].map((book, i) => (
+              <motion.div
+                key={book.level}
+                className="curriculum-book-3d-wrapper"
+                onClick={() => { setActiveCurriculumLevel(book.level); setActiveBookPage(0); }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -12, scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => setActiveCurriculumLevel(level)}
-                className="curriculum-level-btn"
                 style={{
-                  padding: '18px 36px',
-                  borderRadius: '16px',
-                  border: activeCurriculumLevel === level ? 'none' : '2px solid var(--border)',
-                  background: activeCurriculumLevel === level
-                    ? (level === 6 ? 'linear-gradient(135deg, #2563EB, #06B6D4)' : level === 7 ? 'linear-gradient(135deg, #7C3AED, #06B6D4)' : level === 8 ? 'linear-gradient(135deg, #DC2626, #F97316)' : 'linear-gradient(135deg, #1E40AF, #3B82F6)')
-                    : 'var(--bg-card)',
-                  color: activeCurriculumLevel === level ? 'white' : 'var(--navy)',
                   cursor: 'pointer',
-                  fontWeight: '800',
-                  fontSize: '16px',
-                  fontFamily: 'Poppins, sans-serif',
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '12px',
-                  boxShadow: activeCurriculumLevel === level ? '0 8px 30px rgba(37, 99, 235, 0.3)' : 'var(--shadow)',
-                  transition: 'all 0.3s ease'
+                  gap: '16px',
+                  position: 'relative'
                 }}
               >
-                {curriculumData[level].icon}
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '16px' }}>{level === 6 ? '🟢 Class 6 – Foundations' : level === 7 ? '🟡 Class 7 – Explorer' : level === 8 ? '🔵 Class 8 – Master' : '🔴 Class 9 – Innovator'}</div>
-                  <div style={{ fontSize: '12px', fontWeight: '500', opacity: 0.8 }}>Class {level} • {curriculumData[level].duration}</div>
+                {/* Active glow ring */}
+                {activeCurriculumLevel === book.level && (
+                  <motion.div
+                    layoutId="active-book-ring"
+                    style={{
+                      position: 'absolute',
+                      inset: '-8px',
+                      borderRadius: '18px',
+                      border: `3px solid ${book.spineLight}`,
+                      boxShadow: `0 0 32px ${book.spineLight}55, 0 0 60px ${book.spineLight}22`,
+                      zIndex: 0,
+                      pointerEvents: 'none'
+                    }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                )}
+
+                {/* 3D Book */}
+                <div
+                  className="book-3d"
+                  style={{
+                    width: '140px',
+                    height: '195px',
+                    position: 'relative',
+                    transformStyle: 'preserve-3d',
+                    transform: activeCurriculumLevel === book.level
+                      ? 'rotateY(-20deg) rotateX(4deg)'
+                      : 'rotateY(-8deg) rotateX(2deg)',
+                    transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
+                    zIndex: 1
+                  }}
+                >
+                  {/* Front Cover */}
+                  <div style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '4px 6px 6px 4px',
+                    overflow: 'hidden',
+                    boxShadow: activeCurriculumLevel === book.level
+                      ? `0 20px 50px ${book.spineLight}66, 0 8px 24px rgba(0,0,0,0.25)`
+                      : '0 10px 30px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.12)',
+                    transition: 'box-shadow 0.4s ease'
+                  }}>
+                    <img
+                      src={book.cover}
+                      alt={book.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      draggable={false}
+                    />
+                  </div>
+                  {/* Spine */}
+                  <div style={{
+                    position: 'absolute',
+                    left: '-28px',
+                    top: 0,
+                    width: '28px',
+                    height: '100%',
+                    background: `linear-gradient(180deg, ${book.spine} 0%, ${book.spineLight} 50%, ${book.spine} 100%)`,
+                    transform: 'rotateY(-90deg) translateZ(0px)',
+                    transformOrigin: 'right center',
+                    borderRadius: '4px 0 0 4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: 'inset -3px 0 8px rgba(0,0,0,0.2)'
+                  }}>
+                    <span style={{
+                      writingMode: 'vertical-rl',
+                      textOrientation: 'mixed',
+                      fontSize: '9px',
+                      fontWeight: 800,
+                      color: 'rgba(255,255,255,0.9)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '2px',
+                      fontFamily: 'Poppins, sans-serif'
+                    }}>{book.title}</span>
+                  </div>
+                  {/* Pages edge */}
+                  <div style={{
+                    position: 'absolute',
+                    right: '-10px',
+                    top: '4px',
+                    width: '10px',
+                    height: 'calc(100% - 8px)',
+                    background: 'linear-gradient(90deg, #e8e4d8, #f5f2e8 30%, #ece8d8 70%, #e2dece)',
+                    borderRadius: '0 2px 2px 0'
+                  }} />
                 </div>
-              </motion.button>
+
+                {/* Label below book */}
+                <div style={{ textAlign: 'center', zIndex: 1 }}>
+                  <div style={{
+                    fontSize: '11px',
+                    fontWeight: 800,
+                    color: activeCurriculumLevel === book.level ? book.spineLight : 'var(--text-dim)',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    marginBottom: '4px',
+                    transition: 'color 0.3s ease'
+                  }}>{book.badge}</div>
+                  <div style={{
+                    fontSize: '13px',
+                    fontWeight: 800,
+                    color: 'var(--navy)',
+                    fontFamily: 'Poppins, sans-serif'
+                  }}>{book.title}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>{book.sub}</div>
+                </div>
+              </motion.div>
             ))}
           </motion.div>
 
-          {/* Active Level Header */}
+          {/* Open Book Content Panel */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCurriculumLevel}
-              initial={{ opacity: 0, rotateY: -95, x: 80, scale: 0.96 }}
-              animate={{ opacity: 1, rotateY: 0, x: 0, scale: 1 }}
-              exit={{ opacity: 0, rotateY: 95, x: -80, scale: 0.96 }}
-              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 30, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.97 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               style={{
-                position: 'relative',
-                padding: '24px',
-                borderRadius: '32px',
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,250,255,0.96))',
-                border: '1px solid rgba(148, 163, 184, 0.22)',
-                boxShadow: '0 24px 70px rgba(15, 23, 42, 0.14)',
+                display: 'grid',
+                gridTemplateColumns: '220px 1fr',
+                gap: '0',
+                borderRadius: '28px',
                 overflow: 'hidden',
-                transformStyle: 'preserve-3d',
-                transformPerspective: '1600px',
-                transformOrigin: 'left center'
+                boxShadow: '0 32px 80px rgba(15, 23, 42, 0.18), 0 8px 24px rgba(15, 23, 42, 0.1)',
+                border: `2px solid ${data.color}30`,
+                background: 'var(--bg-card)',
+                minHeight: '480px'
               }}
+              className="curriculum-open-book"
             >
-            <div style={{ position: 'absolute', left: '18px', top: '18px', bottom: '18px', width: '8px', borderRadius: '999px', background: 'linear-gradient(180deg, rgba(37, 99, 235, 0.95), rgba(6, 182, 212, 0.7))', opacity: 0.9 }} />
-            <div style={{ position: 'relative', zIndex: 1, paddingLeft: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '999px', background: `${data.color}12`, border: `1px solid ${data.color}25` }}>
-                  <BookOpen size={16} color={data.color} />
-                  <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '1.4px', textTransform: 'uppercase', color: data.color }}>
-                    Book Page • {data.title}
-                  </span>
-                </div>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-dim)', background: 'var(--bg-subtle)', padding: '8px 12px', borderRadius: '999px' }}>
-                  {data.days.length} sessions • {data.duration}
-                </div>
-              </div>
+              {/* Left: Book Cover Panel */}
+              <div style={{
+                background: `linear-gradient(160deg, ${data.color}22 0%, ${data.color}08 100%)`,
+                borderRight: `1px solid ${data.color}20`,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '32px 20px',
+                gap: '20px',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                {/* Subtle background lines */}
+                <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.035) 28px, rgba(0,0,0,0.035) 29px)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', top: '-40px', left: '-40px', width: '180px', height: '180px', borderRadius: '50%', background: `${data.color}12`, filter: 'blur(40px)', pointerEvents: 'none' }} />
 
-              <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-                <h2 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '32px', fontWeight: 800, color: 'var(--navy)', marginBottom: '8px' }}>
-                  {data.title}
-                </h2>
-                <p style={{ color: 'var(--text-dim)', fontSize: '16px' }}>
-                  {data.subtitle} • {data.duration}
-                </p>
-              </div>
+                {/* Book cover image */}
+                <motion.div
+                  whileHover={{ rotateY: -15, scale: 1.04 }}
+                  transition={{ duration: 0.4 }}
+                  style={{
+                    position: 'relative',
+                    width: '130px',
+                    height: '180px',
+                    borderRadius: '4px 8px 8px 4px',
+                    overflow: 'hidden',
+                    boxShadow: `0 16px 48px ${data.color}44, 0 4px 16px rgba(0,0,0,0.2)`,
+                    flexShrink: 0,
+                    zIndex: 1,
+                    cursor: 'default',
+                    transformStyle: 'preserve-3d'
+                  }}
+                >
+                  <img
+                    src={activeCurriculumLevel === 6 ? bookCover1 : activeCurriculumLevel === 7 ? bookCover2 : activeCurriculumLevel === 8 ? bookCover3 : bookCover4}
+                    alt={data.title}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    draggable={false}
+                  />
+                </motion.div>
 
-              {/* Day-by-Day Accordion */}
-              <div className="curriculum-accordion" style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '900px', margin: '0 auto' }}>
-              {data.days.map((day) => {
-                const isOpen = openDays[`${activeCurriculumLevel}-${day.day}`];
-                return (
-                  <motion.div
-                    key={day.day}
-                    className="curriculum-day-card"
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: day.day * 0.04 }}
-                    style={{
-                      background: 'var(--bg-card)',
-                      borderRadius: '20px',
-                      border: isOpen ? `2px solid ${data.color}22` : '1px solid var(--border)',
-                      boxShadow: isOpen ? `0 8px 32px ${data.color}15` : 'var(--shadow)',
-                      overflow: 'hidden',
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                    {/* Accordion Header */}
-                    <div
-                      onClick={() => toggleDay(activeCurriculumLevel, day.day)}
-                      style={{
-                        padding: '24px 28px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '20px',
-                        cursor: 'pointer',
-                        transition: 'background 0.2s ease'
-                      }}
-                    >
-                      <div style={{
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: '14px',
-                        background: isOpen
-                          ? (activeCurriculumLevel === 6 ? 'linear-gradient(135deg, #2563EB, #06B6D4)' : 'linear-gradient(135deg, #7C3AED, #06B6D4)')
-                          : 'var(--bg-subtle)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: isOpen ? 'white' : 'var(--primary)',
-                        fontWeight: '900',
-                        fontSize: '16px',
-                        fontFamily: 'Poppins, sans-serif',
-                        flexShrink: 0,
-                        transition: 'all 0.3s ease'
-                      }}>
-                        {day.day < 10 ? `0${day.day}` : day.day}
-                      </div>
-                      <div style={{ flex: 1 }}>
-                        <h4 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '16px', fontWeight: 700, color: 'var(--navy)', margin: 0 }}>
-                          {day.module}
-                        </h4>
-                        <p style={{ fontSize: '13px', color: 'var(--text-dim)', margin: '4px 0 0' }}>
-                          {day.topics.length} topics • 1 practical activity
-                        </p>
-                      </div>
-                      <motion.div
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.25 }}
-                        style={{ color: 'var(--primary)' }}
-                      >
-                        <ChevronDown size={22} />
-                      </motion.div>
+                {/* Title + details */}
+                <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', borderRadius: '999px', background: `${data.color}18`, border: `1px solid ${data.color}30`, marginBottom: '10px' }}>
+                    <BookOpen size={13} color={data.color} />
+                    <span style={{ fontSize: '11px', fontWeight: 800, color: data.color, letterSpacing: '1px', textTransform: 'uppercase' }}>AISI Book</span>
+                  </div>
+                  <h3 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '15px', fontWeight: 900, color: 'var(--navy)', margin: '0 0 6px', lineHeight: 1.3 }}>{data.title}</h3>
+                  <p style={{ fontSize: '12px', color: 'var(--text-dim)', margin: '0 0 8px' }}>{data.subtitle}</p>
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: data.color, background: `${data.color}12`, padding: '5px 10px', borderRadius: '8px', display: 'inline-block' }}>
+                    {data.duration}
+                  </div>
+                </div>
+
+                {/* Quick stats */}
+                <div style={{ width: '100%', display: 'grid', gap: '8px', position: 'relative', zIndex: 1 }}>
+                  {[
+                    { label: 'Sessions', val: data.days.length },
+                    { label: 'Outcomes', val: data.outcomes.length },
+                    { label: 'Skills', val: data.competencies.length }
+                  ].map((s, i) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', borderRadius: '10px', background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(8px)' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-dim)' }}>{s.label}</span>
+                      <span style={{ fontSize: '13px', fontWeight: 800, color: data.color }}>{s.val}</span>
                     </div>
+                  ))}
+                </div>
+              </div>
 
-                    {/* Accordion Content */}
-                    <AnimatePresence>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                          style={{ overflow: 'hidden' }}
-                        >
-                          <div style={{ padding: '0 28px 28px', borderTop: '1px solid var(--border)' }}>
-                            <div style={{ paddingTop: '24px' }}>
-                              {/* Topics */}
-                              <div style={{ marginBottom: '20px' }}>
-                                <h5 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '13px', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '14px' }}>
-                                  <BookOpen size={14} style={{ marginRight: '6px', verticalAlign: 'middle' }} /> Topics Covered
-                                </h5>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                  {day.topics.map((topic, idx) => (
-                                    <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 16px', background: 'var(--bg-subtle)', borderRadius: '12px', border: '1px solid var(--border)' }}>
-                                      <CheckCircle2 size={16} color={data.color} />
-                                      <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--navy)' }}>{topic}</span>
-                                    </div>
-                                  ))}
-                                </div>
+              {/* Right: Book Content Pages */}
+              <div style={{
+                background: 'linear-gradient(135deg, #fdfbf3 0%, #f8f4e8 40%, #f5f1e0 100%)',
+                padding: '36px 40px',
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                {/* Page lines texture */}
+                <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(176,166,140,0.07) 28px, rgba(176,166,140,0.07) 29px)', pointerEvents: 'none' }} />
+                {/* Spine shadow */}
+                <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '32px', background: 'linear-gradient(90deg, rgba(0,0,0,0.07) 0%, transparent 100%)', pointerEvents: 'none' }} />
+                {/* Page corner fold */}
+                <div style={{ position: 'absolute', top: 0, right: 0, width: '24px', height: '24px', background: 'linear-gradient(225deg, #ece8d8 50%, rgba(0,0,0,0.03) 50%)', pointerEvents: 'none' }} />
+
+                {/* Page navigation header */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', position: 'relative', zIndex: 1 }}>
+                  <div>
+                    <span style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', color: data.color, display: 'block', marginBottom: '4px' }}>{currentPage.accent}</span>
+                    <h3 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '22px', fontWeight: 800, color: '#1a1a2e', margin: 0 }}>{currentPage.title}</h3>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    {/* Page indicator dots */}
+                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      {bookPages.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveBookPage(idx)}
+                          style={{
+                            width: idx === activeBookPage ? '24px' : '8px',
+                            height: '8px',
+                            borderRadius: '4px',
+                            border: 'none',
+                            background: idx === activeBookPage ? data.color : 'rgba(0,0,0,0.15)',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            padding: 0
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: data.color, background: `${data.color}12`, padding: '6px 10px', borderRadius: '999px' }}>
+                      {activeBookPage + 1} / {totalPages}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Page Content */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`${activeCurriculumLevel}-${activeBookPage}`}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ flex: 1, position: 'relative', zIndex: 1 }}
+                  >
+                    {activeBookPage === 0 && (
+                      <div style={{ display: 'grid', gap: '14px' }}>
+                        <div style={{ padding: '16px 18px', borderRadius: '16px', background: `${data.color}10`, border: `1px solid ${data.color}22` }}>
+                          <p style={{ margin: 0, fontSize: '12px', fontWeight: 800, color: data.color, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '6px' }}>What this class covers</p>
+                          <p style={{ margin: 0, fontSize: '14px', color: '#2a2a3e', lineHeight: '1.7', fontWeight: 500 }}>{data.subtitle}</p>
+                        </div>
+                        <div style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(0,0,0,0.4)', letterSpacing: '1.5px', textTransform: 'uppercase', marginTop: '4px' }}>Key Outcomes</div>
+                        <div style={{ display: 'grid', gap: '10px' }}>
+                          {data.outcomes.slice(0, 4).map((outcome, idx) => (
+                            <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 14px', borderRadius: '12px', background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(4px)', border: '1px solid rgba(0,0,0,0.06)' }}>
+                              <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: `${data.color}18`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
+                                <CheckCircle2 size={13} color={data.color} />
                               </div>
+                              <span style={{ fontSize: '13px', fontWeight: 600, color: '#2a2a3e', lineHeight: '1.5' }}>{outcome}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
-                              {/* Practical */}
-                              <div style={{
-                                padding: '18px 20px',
-                                background: `linear-gradient(135deg, ${data.color}08, ${data.color}15)`,
-                                borderRadius: '14px',
-                                border: `1px solid ${data.color}22`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '14px'
-                              }}>
-                                <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: data.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                  <Monitor size={18} color="white" />
+                    {activeBookPage === 1 && (
+                      <div style={{ display: 'grid', gap: '12px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(0,0,0,0.4)', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '4px' }}>Learning Journey — {data.days.length} Sessions</div>
+                        {data.days.map((day, idx) => (
+                          <div key={idx} style={{
+                            padding: '14px 16px',
+                            borderRadius: '14px',
+                            background: 'rgba(255,255,255,0.7)',
+                            border: '1px solid rgba(0,0,0,0.06)',
+                            backdropFilter: 'blur(4px)'
+                          }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', marginBottom: '6px' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <div style={{ width: '26px', height: '26px', borderRadius: '8px', background: `${data.color}18`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                  <span style={{ fontSize: '11px', fontWeight: 800, color: data.color }}>{day.day}</span>
                                 </div>
-                                <div>
-                                  <span style={{ fontSize: '11px', fontWeight: 700, color: data.color, textTransform: 'uppercase', letterSpacing: '1px' }}>Practical Activity</span>
-                                  <p style={{ fontSize: '14px', fontWeight: 600, color: 'var(--navy)', margin: '2px 0 0' }}>{day.practical}</p>
-                                </div>
+                                <strong style={{ fontSize: '13px', color: '#1a1a2e', fontWeight: 800 }}>{day.module}</strong>
                               </div>
                             </div>
+                            <p style={{ margin: '0 0 0 36px', fontSize: '12px', color: '#5a5a6a', lineHeight: '1.5', fontStyle: 'italic' }}>{day.practical}</p>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                        ))}
+                      </div>
+                    )}
+
+                    {activeBookPage === 2 && (
+                      <div style={{ display: 'grid', gap: '16px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(0,0,0,0.4)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>All Learning Outcomes</div>
+                        <div style={{ display: 'grid', gap: '8px' }}>
+                          {data.outcomes.map((outcome, idx) => (
+                            <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '12px', background: 'rgba(255,255,255,0.65)', border: '1px solid rgba(0,0,0,0.05)' }}>
+                              <span style={{ fontSize: '11px', fontWeight: 800, color: data.color, minWidth: '20px', textAlign: 'right' }}>{String(idx + 1).padStart(2, '0')}.</span>
+                              <span style={{ fontSize: '13px', fontWeight: 600, color: '#2a2a3e' }}>{outcome}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(0,0,0,0.4)', letterSpacing: '1.5px', textTransform: 'uppercase', marginTop: '4px' }}>Skills Developed</div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                          {data.competencies.map((comp, idx) => (
+                            <span key={idx} style={{ padding: '8px 14px', borderRadius: '999px', background: `${data.color}14`, border: `1px solid ${data.color}25`, color: data.color, fontSize: '12px', fontWeight: 800 }}>
+                              {comp}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </motion.div>
-                );
-              })}
-            </div>
+                </AnimatePresence>
 
-            {/* Learning Outcomes */}
-            <motion.section {...fadeIn} style={{ marginTop: '80px' }}>
-              <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                <span style={{ color: 'var(--primary)', fontWeight: '800', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '2px' }}>WHAT STUDENTS ACHIEVE</span>
-                <h2 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '32px', fontWeight: 800, color: 'var(--navy)', margin: '12px 0' }}>Learning Outcomes</h2>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', maxWidth: '900px', margin: '0 auto' }}>
-                {data.outcomes.map((outcome, idx) => (
-                  <motion.div
-                    key={idx}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    style={{
-                      padding: '20px 24px',
-                      background: 'var(--bg-card)',
-                      borderRadius: '16px',
-                      border: '1px solid var(--border)',
-                      boxShadow: 'var(--shadow)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '14px',
-                      transition: 'all 0.3s ease'
-                    }}
+                {/* Page Turn Navigation */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '28px', position: 'relative', zIndex: 1, paddingTop: '20px', borderTop: '1px dashed rgba(0,0,0,0.08)' }}>
+                  <button
+                    onClick={() => setActiveBookPage(prev => Math.max(prev - 1, 0))}
+                    disabled={activeBookPage === 0}
+                    style={{ border: 'none', background: activeBookPage === 0 ? 'rgba(0,0,0,0.05)' : `${data.color}14`, color: activeBookPage === 0 ? '#aaa' : data.color, padding: '10px 18px', borderRadius: '999px', cursor: activeBookPage === 0 ? 'not-allowed' : 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: 800, fontSize: '13px', transition: 'all 0.3s' }}
                   >
-                    <CheckCircle2 size={20} color={data.color} />
-                    <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--navy)' }}>{outcome}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
-
-            {/* Core Competencies */}
-            <motion.section {...fadeIn} style={{ marginTop: '60px' }}>
-              <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-                <h3 style={{ fontFamily: 'Poppins, sans-serif', fontSize: '24px', fontWeight: 700, color: 'var(--navy)' }}>Core Competencies</h3>
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', maxWidth: '800px', margin: '0 auto' }}>
-                {data.competencies.map((comp, idx) => (
-                  <span
-                    key={idx}
-                    style={{
-                      padding: '10px 22px',
-                      background: `linear-gradient(135deg, ${data.color}10, ${data.color}18)`,
-                      borderRadius: '50px',
-                      border: `1px solid ${data.color}25`,
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      color: data.color,
-                      fontFamily: 'Inter, sans-serif'
-                    }}
+                    <ChevronLeft size={15} /> Previous
+                  </button>
+                  <span style={{ fontSize: '12px', color: '#aaa', fontStyle: 'italic' }}>Page {activeBookPage + 1} of {totalPages}</span>
+                  <button
+                    onClick={() => setActiveBookPage(prev => Math.min(prev + 1, totalPages - 1))}
+                    disabled={activeBookPage === totalPages - 1}
+                    style={{ border: 'none', background: activeBookPage === totalPages - 1 ? 'rgba(0,0,0,0.05)' : data.color, color: activeBookPage === totalPages - 1 ? '#aaa' : 'white', padding: '10px 18px', borderRadius: '999px', cursor: activeBookPage === totalPages - 1 ? 'not-allowed' : 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: 800, fontSize: '13px', transition: 'all 0.3s', boxShadow: activeBookPage === totalPages - 1 ? 'none' : `0 6px 20px ${data.color}44` }}
                   >
-                    {comp}
-                  </span>
-                ))}
+                    Next <ChevronRight size={15} />
+                  </button>
+                </div>
               </div>
-            </motion.section>
-            </div>
-          </motion.div>
-
+            </motion.div>
           </AnimatePresence>
 
-          {/* Back Button */}
-          <div style={{ textAlign: 'center', marginTop: '60px' }}>
-            <button className="btn btn-outline" onClick={() => navigateTo('home')}>
-              <ArrowLeft size={20} style={{ marginRight: '8px' }} /> Back to Home
+          {/* CTA + Back Button */}
+          <motion.div {...fadeIn} transition={{ delay: 0.2 }} style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '48px', flexWrap: 'wrap' }}>
+            <motion.button
+              className="btn btn-primary btn-glow"
+              onClick={() => { setBookPageIndex(0); setPageTurning(null); navigateTo('syllabus', activeCurriculumLevel); }}
+              whileHover={{ scale: 1.04, y: -3 }}
+              whileTap={{ scale: 0.97 }}
+              style={{ padding: '14px 36px', fontSize: '15px', fontWeight: 700, background: `linear-gradient(135deg, ${data.color}, ${data.color}cc)` }}
+            >
+              📖 Open Full Book Reader <ArrowRight size={17} style={{ marginLeft: '8px' }} />
+            </motion.button>
+            <button className="btn btn-outline" onClick={() => navigateTo('home')} style={{ padding: '14px 28px' }}>
+              <ArrowLeft size={18} style={{ marginRight: '8px' }} /> Back to Home
             </button>
-          </div>
+          </motion.div>
         </div>
       </div>
     );

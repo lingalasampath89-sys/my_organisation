@@ -2404,3 +2404,1019 @@ img { max-width: 100%; height: auto; display: block; }
 
   .hero-slide-counter { font-size: 10px; padding: 6px 12px; }
 }
+
+
+/* ============================================================
+   3D BOOKSHELF & BOOK READER — Photorealistic Book Syllabus
+   ============================================================ */
+
+/* --- Bookshelf Section --- */
+.bookshelf-section {
+  padding: 100px 0 140px;
+  position: relative;
+  overflow: visible;
+  background: linear-gradient(180deg, transparent 0%, rgba(139, 105, 20, 0.03) 60%, rgba(139, 105, 20, 0.06) 100%);
+}
+
+.bookshelf-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(139, 105, 20, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.bookshelf-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.bookshelf-header .eyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.bookshelf-header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  color: var(--navy);
+  margin: 12px 0 16px;
+}
+
+.bookshelf-header p {
+  font-size: 17px;
+  color: var(--text-dim);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* --- The Shelf --- */
+.bookshelf {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 56px;
+  padding: 0 20px 40px;
+  perspective: 1400px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+/* Wooden shelf — photorealistic */
+.shelf-wood {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
+  max-width: 920px;
+  height: 32px;
+  background: 
+    linear-gradient(180deg, 
+      #b8903a 0%, 
+      #a07d2e 4%,
+      #8B6914 15%, 
+      #7a5c12 50%, 
+      #6B4F12 80%, 
+      #5A4210 100%
+    );
+  border-radius: 0 0 6px 6px;
+  box-shadow:
+    0 8px 32px rgba(90, 66, 16, 0.5),
+    0 3px 6px rgba(0,0,0,0.3),
+    inset 0 2px 3px rgba(255,255,255,0.2),
+    inset 0 -2px 4px rgba(0,0,0,0.15);
+}
+
+/* Shelf front lip */
+.shelf-wood::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -14px;
+  right: -14px;
+  height: 10px;
+  background: linear-gradient(180deg, 
+    #c99b3e 0%, 
+    #b8903a 30%,
+    #a07d2e 70%, 
+    #8B6914 100%
+  );
+  border-radius: 5px 5px 0 0;
+  box-shadow: 
+    0 -3px 10px rgba(0,0,0,0.15),
+    inset 0 2px 3px rgba(255,255,255,0.25);
+}
+
+/* Wood grain texture */
+.shelf-wood::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 18px,
+      rgba(255,255,255,0.03) 18px,
+      rgba(255,255,255,0.03) 19px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 47px,
+      rgba(0,0,0,0.04) 47px,
+      rgba(0,0,0,0.04) 48px
+    );
+  border-radius: inherit;
+}
+
+
+/* ============================================================
+   Individual 3D Book — Photorealistic
+   ============================================================ */
+
+.book-3d-wrapper {
+  perspective: 900px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 8px;
+}
+
+/* Shadow underneath each book */
+.book-3d-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 15%;
+  right: 10%;
+  height: 18px;
+  background: radial-gradient(ellipse at 40% 50%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 60%, transparent 80%);
+  filter: blur(4px);
+  transition: all 0.5s;
+  z-index: -1;
+}
+
+.book-3d-wrapper:hover::after {
+  bottom: -6px;
+  background: radial-gradient(ellipse at 40% 50%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 60%, transparent 80%);
+  filter: blur(6px);
+}
+
+.book-3d {
+  width: 180px;
+  height: 250px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(-22deg) rotateX(2deg);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.book-3d-wrapper:hover .book-3d {
+  transform: rotateY(-35deg) rotateX(3deg) translateY(-14px);
+}
+
+/* Book Cover (Front) — uses actual image */
+.book-cover-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 1px 6px 6px 1px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow:
+    6px 6px 18px rgba(0,0,0,0.35),
+    2px 2px 6px rgba(0,0,0,0.2),
+    inset 0 0 40px rgba(0,0,0,0.1);
+}
+
+/* When using image cover */
+.book-cover-image {
+  padding: 0 !important;
+  display: block;
+  background: none !important;
+}
+
+.book-cover-image::before,
+.book-cover-image::after {
+  display: none;
+}
+
+.book-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Glossy shine overlay on cover */
+.book-cover-front::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg, 
+    rgba(255,255,255,0.18) 0%, 
+    transparent 35%, 
+    transparent 65%,
+    rgba(0,0,0,0.08) 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Inner border effect */
+.book-cover-front::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Book Spine (Left edge) — 3D depth */
+.book-spine {
+  position: absolute;
+  width: 42px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transform: rotateY(90deg) translateZ(0px) translateX(-21px);
+  transform-origin: left center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px 0 0 3px;
+  box-shadow: 
+    inset 3px 0 8px rgba(0,0,0,0.4), 
+    inset -3px 0 8px rgba(0,0,0,0.2),
+    inset 0 2px 4px rgba(255,255,255,0.1);
+}
+
+/* Spine decorative lines */
+.book-spine::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 5px;
+  right: 5px;
+  border-top: 2px solid rgba(255,255,255,0.15);
+  border-bottom: 2px solid rgba(255,255,255,0.15);
+}
+
+.book-spine::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 8px;
+  right: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.book-spine-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 2;
+}
+
+/* Book Back Cover */
+.book-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(-42px);
+  border-radius: 6px 1px 1px 6px;
+  box-shadow: -3px 3px 10px rgba(0,0,0,0.25);
+}
+
+/* Book Bottom (page edges) — realistic stacked pages */
+.book-pages-edge {
+  position: absolute;
+  width: 100%;
+  height: 42px;
+  bottom: 0;
+  left: 0;
+  transform: rotateX(90deg) translateZ(0px) translateY(21px);
+  transform-origin: bottom center;
+  background: 
+    linear-gradient(90deg,
+      #e8e0c8 0%,
+      #f5f0e0 2%,
+      #fffdf5 4%,
+      #f0ebd5 6%,
+      #fffdf5 8%,
+      #f5f0e0 10%,
+      #fffdf5 12%,
+      #e8e0c8 14%,
+      #fffdf5 16%,
+      #f5f0e0 18%,
+      #fffdf5 22%,
+      #f0ebd5 26%,
+      #fffdf5 30%,
+      #f5f0e0 40%,
+      #fffdf5 60%,
+      #f0ebd5 80%,
+      #fffdf5 100%
+    );
+  box-shadow: 
+    inset 0 2px 6px rgba(0,0,0,0.1),
+    inset 0 -1px 3px rgba(0,0,0,0.05);
+  border-left: 1px solid #d4cbb0;
+  border-right: 1px solid #d4cbb0;
+}
+
+/* Top page edge */
+.book-pages-top {
+  position: absolute;
+  width: 100%;
+  height: 42px;
+  top: 0;
+  left: 0;
+  transform: rotateX(-90deg) translateZ(0px) translateY(-21px);
+  transform-origin: top center;
+  background: 
+    linear-gradient(90deg,
+      #e8e0c8 0%,
+      #f5f0e0 3%,
+      #fffdf5 6%,
+      #f0ebd5 9%,
+      #fffdf5 15%,
+      #f5f0e0 30%,
+      #fffdf5 50%,
+      #f0ebd5 70%,
+      #fffdf5 100%
+    );
+  box-shadow: inset 0 -2px 6px rgba(0,0,0,0.08);
+  border-left: 1px solid #d4cbb0;
+  border-right: 1px solid #d4cbb0;
+}
+
+/* Book label below */
+.book-label {
+  text-align: center;
+  margin-top: 28px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.book-3d-wrapper:hover .book-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.book-label span {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--bg-card);
+  padding: 8px 20px;
+  border-radius: 24px;
+  border: 1.5px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  display: inline-block;
+}
+
+
+/* ============================================================
+   BOOK READER — Open Book with Page Turning
+   ============================================================ */
+
+.book-reader-page {
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: 
+    radial-gradient(ellipse at 50% 30%, rgba(245, 240, 224, 0.4) 0%, transparent 60%),
+    linear-gradient(180deg, transparent 0%, rgba(139, 105, 20, 0.02) 100%);
+}
+
+.book-reader-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.book-reader-header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 900;
+  color: var(--navy);
+  margin: 8px 0;
+}
+
+.book-reader-header p {
+  font-size: 16px;
+  color: var(--text-dim);
+}
+
+/* The open book container */
+.open-book-container {
+  perspective: 2000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  width: 100%;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.open-book {
+  width: 100%;
+  max-width: 880px;
+  min-height: 540px;
+  position: relative;
+  transform-style: preserve-3d;
+  display: flex;
+  border-radius: 3px;
+  box-shadow:
+    0 1px 4px rgba(0,0,0,0.08),
+    0 4px 16px rgba(0,0,0,0.12),
+    0 16px 48px rgba(0,0,0,0.16),
+    0 32px 80px rgba(0,0,0,0.1),
+    inset 0 0 2px rgba(0,0,0,0.05);
+}
+
+/* Center spine of open book */
+.book-spine-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  background: linear-gradient(90deg,
+    rgba(0,0,0,0.15) 0%,
+    rgba(0,0,0,0.06) 15%,
+    rgba(0,0,0,0.02) 30%,
+    rgba(0,0,0,0.0) 50%,
+    rgba(0,0,0,0.02) 70%,
+    rgba(0,0,0,0.06) 85%,
+    rgba(0,0,0,0.15) 100%
+  );
+  z-index: 10;
+  pointer-events: none;
+}
+
+.book-spine-center::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(0,0,0,0.1);
+  transform: translateX(-50%);
+}
+
+/* Left page (static) */
+.book-page-left,
+.book-page-right {
+  width: 50%;
+  min-height: 540px;
+  padding: 44px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.book-page-left {
+  background: 
+    linear-gradient(135deg, #fdfbf3 0%, #f8f4e6 40%, #f3efe0 100%);
+  border-radius: 3px 0 0 3px;
+  border-right: 1px solid rgba(0,0,0,0.04);
+}
+
+.book-page-right {
+  background: 
+    linear-gradient(225deg, #fdfbf3 0%, #f8f4e6 40%, #f3efe0 100%);
+  border-radius: 0 3px 3px 0;
+  border-left: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Notebook line texture on pages */
+.book-page-left::before,
+.book-page-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(176, 166, 140, 0.08) 28px,
+      rgba(176, 166, 140, 0.08) 29px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Page curl shadow on left page */
+.book-page-left::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(270deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.02) 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Page curl shadow on right page */
+.book-page-right::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.02) 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Page content styling */
+.page-content {
+  position: relative;
+  z-index: 2;
+}
+
+.page-content .page-unit-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.page-content .page-unit-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.page-content .page-section-title {
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-content .page-section-body {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #3a3a4a;
+  white-space: pre-line;
+  margin-bottom: 20px;
+}
+
+.page-number {
+  position: absolute;
+  bottom: 18px;
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.page-number-left {
+  left: 40px;
+}
+
+.page-number-right {
+  right: 40px;
+}
+
+/* Page corner fold */
+.page-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(225deg, #f0ece0 50%, rgba(0,0,0,0.04) 50%);
+  z-index: 3;
+  box-shadow: -1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* --- Page-Turn Animation Container --- */
+.page-turn-area {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.page-turn-area.turning-forward {
+  animation: pageTurnForward 0.9s cubic-bezier(0.4, 0.0, 0.2, 1.0) forwards;
+}
+
+.page-turn-area.turning-backward {
+  animation: pageTurnBackward 0.9s cubic-bezier(0.4, 0.0, 0.2, 1.0) forwards;
+}
+
+.page-turn-front,
+.page-turn-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  padding: 44px 40px;
+  overflow: hidden;
+}
+
+.page-turn-front {
+  background: linear-gradient(225deg, #fdfbf3 0%, #f8f4e6 40%, #f3efe0 100%);
+  border-radius: 0 3px 3px 0;
+  z-index: 2;
+}
+
+.page-turn-front::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.08) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.page-turn-back {
+  background: linear-gradient(135deg, #fdfbf3 0%, #f8f4e6 40%, #f3efe0 100%);
+  transform: rotateY(180deg);
+  border-radius: 3px 0 0 3px;
+  z-index: 1;
+}
+
+.page-turn-back::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(270deg, rgba(0,0,0,0.08) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+@keyframes pageTurnForward {
+  0% {
+    transform: rotateY(0deg);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  15% {
+    box-shadow: -4px 0 16px rgba(0,0,0,0.08);
+  }
+  40% {
+    box-shadow: -12px 0 40px rgba(0,0,0,0.18);
+  }
+  60% {
+    box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+  }
+  100% {
+    transform: rotateY(-180deg);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+}
+
+@keyframes pageTurnBackward {
+  0% {
+    transform: rotateY(-180deg);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  15% {
+    box-shadow: 4px 0 16px rgba(0,0,0,0.08);
+  }
+  40% {
+    box-shadow: 12px 0 40px rgba(0,0,0,0.18);
+  }
+  60% {
+    box-shadow: 8px 0 30px rgba(0,0,0,0.12);
+  }
+  100% {
+    transform: rotateY(0deg);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+}
+
+/* Nav arrows for page turning */
+.book-nav-arrow {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.book-nav-arrow:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: scale(1.12);
+  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.35);
+}
+
+.book-nav-arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Page indicator dots */
+.page-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.page-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: all 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+.page-dot.active {
+  width: 32px;
+  border-radius: 5px;
+  background: var(--primary);
+}
+
+/* Back button for book reader */
+.book-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  background: none;
+  border: 2px solid var(--border);
+  padding: 10px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 24px;
+}
+
+.book-back-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Grade switcher tabs in book reader */
+.book-grade-tabs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.book-grade-tab {
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.book-grade-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.book-grade-tab.active {
+  color: white;
+  border-color: transparent;
+}
+
+
+/* ============================================================
+   RESPONSIVE — Books & Reader
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .bookshelf {
+    gap: 36px;
+  }
+
+  .book-3d {
+    width: 145px;
+    height: 200px;
+  }
+
+  .book-spine {
+    width: 32px;
+  }
+
+  .book-spine-text {
+    font-size: 8px;
+  }
+
+  .book-pages-edge,
+  .book-pages-top {
+    height: 32px;
+  }
+
+  .open-book {
+    flex-direction: column;
+    min-height: auto;
+    max-width: 100%;
+  }
+
+  .book-page-left,
+  .book-page-right {
+    width: 100%;
+    min-height: 380px;
+    padding: 28px 24px;
+  }
+
+  .book-spine-center {
+    display: none;
+  }
+
+  .book-page-left {
+    border-radius: 3px 3px 0 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .book-page-right {
+    border-radius: 0 0 3px 3px;
+    border-left: none;
+  }
+
+  .page-turn-area {
+    display: none;
+  }
+
+  .open-book-container {
+    gap: 12px;
+  }
+
+  .book-nav-arrow {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media (max-width: 600px) {
+  .bookshelf {
+    gap: 20px;
+  }
+
+  .book-3d {
+    width: 115px;
+    height: 162px;
+  }
+
+  .book-spine {
+    width: 24px;
+  }
+
+  .book-spine-text {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+
+  .book-pages-edge,
+  .book-pages-top {
+    height: 24px;
+  }
+
+  .book-page-left,
+  .book-page-right {
+    padding: 20px 16px;
+    min-height: 300px;
+  }
+
+  .page-content .page-unit-title {
+    font-size: 18px;
+  }
+
+  .page-content .page-section-body {
+    font-size: 12px;
+  }
+
+  .book-reader-header h1 {
+    font-size: 22px;
+  }
+
+  .bookshelf-section {
+    padding: 60px 0 100px;
+  }
+
+  .shelf-wood {
+    width: 96%;
+  }
+
+  .book-label span {
+    font-size: 10px;
+    padding: 6px 14px;
+  }
+}
+
+/* ============================================================
+   CURRICULUM — Open Book & Book Selector
+   ============================================================ */
+
+.curriculum-book-3d-wrapper {
+  user-select: none;
+}
+
+/* Responsive: stack the open-book layout on small screens */
+@media (max-width: 760px) {
+  .curriculum-open-book {
+    grid-template-columns: 1fr !important;
+  }
+
+  .curriculum-open-book > div:first-child {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding: 24px 20px !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px !important;
+  }
+}
+
+
+
